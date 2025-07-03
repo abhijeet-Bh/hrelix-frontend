@@ -1,7 +1,12 @@
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import { authenticateUser } from "../utils/Thunks";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   const formik = useFormik({
     initialValues: { username: "", password: "" },
     validationSchema: Yup.object({
@@ -9,9 +14,13 @@ export default function Login() {
       password: Yup.string().required("Sorry, firstname is required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      handleLogin(values.username, values.password);
     },
   });
+
+  const handleLogin = (username, password) => {
+    dispatch(authenticateUser({ username: username, password: password }));
+  };
 
   return (
     <div className="bg-[url(assets/images/login-page-bg.png)] w-screen h-screen bg-cover flex items-center justify-center">
@@ -57,10 +66,47 @@ export default function Login() {
           )}
 
           <div
-            className="w-full h-[43px] bg-accent rounded-lg flex justify-center items-center mt-7 cursor-pointer"
-            onClick={formik.handleSubmit}
+            className={`w-full h-[43px] bg-accent rounded-lg flex justify-center items-center mt-7 cursor-pointer ${
+              auth.loading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
+            onClick={!auth.loading ? formik.handleSubmit : undefined}
           >
-            <p className="text-lg font-semibold text-primary-dark">Sign In</p>
+            {auth.loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-primary-dark"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+            ) : (
+              <p className="text-lg font-semibold text-primary-dark">Sign In</p>
+            )}
+          </div>
+          <div>
+            {auth.error != null ? (
+              <p className="mt-4 text-red-400 text-center">
+                Error:{" "}
+                <span className="text-red-500 font-bold"> {auth.error}</span>
+              </p>
+            ) : (
+              <p className="text-green-500 font-bold mt-4 text-center">
+                Logged In Successfully!{" "}
+              </p>
+            )}
           </div>
         </form>
       </div>
