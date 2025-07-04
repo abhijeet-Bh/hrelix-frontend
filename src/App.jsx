@@ -10,6 +10,7 @@ import Leaves from "./components/Leaves";
 import Statistics from "./components/Statistics";
 import Settings from "./components/Settings";
 import Help from "./components/Help";
+import AuthWrapper from "./utils/AuthWrapper";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -20,7 +21,15 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={auth.isAuthenticated ? <Home /> : <Navigate to="/login" />}
+            element={
+              auth.isAuthenticated ? (
+                <AuthWrapper>
+                  <Home />
+                </AuthWrapper>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           >
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />

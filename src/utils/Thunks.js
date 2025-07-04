@@ -26,3 +26,15 @@ export const authenticateUser = createAsyncThunk(
     }
   }
 );
+
+// Profile
+export const fetchProfile = createAsyncThunk(
+  "profile/fetchProfile",
+  async (_, { getState }) => {
+    const { auth } = getState();
+    const response = await axios.get(`${LOGIN_URL}/api/v1/employees/profile`, {
+      headers: { Authorization: `Bearer ${auth.accessToken}` },
+    });
+    return response.data.data;
+  }
+);
