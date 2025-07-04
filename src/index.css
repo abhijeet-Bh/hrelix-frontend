@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-primary-light: #b2a5ff;
-  --color-primary-dark: #493d9e;
-  --color-secondary: #dad2ff;
-  --color-accent: #fff2af;
+@layer base {
+  :root {
+    --color-primary-light: #b2a5ff;
+    --color-primary-dark: #493d9e;
+    --color-secondary: #dad2ff;
+    --color-accent: #fff2af;
+  }
 }
 
 body {
