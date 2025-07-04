@@ -24,10 +24,10 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-[url(assets/images/login-page-bg.png)] w-screen h-screen bg-cover flex items-center justify-center">
+    <div className="bg-[url(images/login-page-bg.png)] w-screen h-screen bg-cover flex items-center justify-center">
       <div className="w-[500px] h-[464px] bg-white flex flex-col rounded-xl items-center justify-center px-7">
         <div className="w-[200px]">
-          <img src="src/assets/icons/hrelix-logo.svg" alt="" />
+          <img src="icons/hrelix-logo.svg" alt="" />
         </div>
         <p className="text-center text-[24px] font-medium text-primaryLight mt-2">
           Login to your account
@@ -84,11 +84,7 @@ export default function Login() {
                 Error:{" "}
                 <span className="text-red-500 font-bold"> {auth.error}</span>
               </p>
-            ) : (
-              <p className="text-green-500 font-bold mt-4 text-center">
-                Logged In Successfully!{" "}
-              </p>
-            )}
+            ) : null}
           </div>
         </form>
       </div>

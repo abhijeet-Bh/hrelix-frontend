@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authenticateUser } from "../utils/Thunks";
 
 const initialState = {
-  //   token: localStorage.getItem("token") || null,
-  accessToken: null,
-  //   isAuthenticated: !!localStorage.getItem("token"),
-  isAuthenticated: false,
+  accessToken: localStorage.getItem("accessToken") || null,
+  // accessToken: null,
+  isAuthenticated: !!localStorage.getItem("accessToken"),
+  // isAuthenticated: false,
   loading: false,
   error: null,
 };

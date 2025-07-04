@@ -15,7 +15,7 @@ export const authenticateUser = createAsyncThunk(
       const { accessToken } = response.data.data;
       console.log(response.data.data);
 
-      //   localStorage.setItem("token", token);
+      localStorage.setItem("accessToken", accessToken);
       if (response.data.success) {
         return { accessToken };
       } else {
