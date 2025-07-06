@@ -4,9 +4,7 @@ import { authenticateUser } from "../utils/Thunks";
 
 const initialState = {
   accessToken: localStorage.getItem("accessToken") || null,
-  // accessToken: null,
   isAuthenticated: !!localStorage.getItem("accessToken"),
-  // isAuthenticated: false,
   loading: false,
   error: null,
 };
@@ -15,13 +13,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // logout: (state) => {
-    //   localStorage.removeItem("token");
-    //   state.token = null;
-    //   state.user = null;
-    //   state.isAuthenticated = false;
-    //   state.error = null;
-    // },
+    logout: (state) => {
+      state.token = null;
+      state.user = null;
+      state.isAuthenticated = false;
+      state.error = null;
+
+      localStorage.removeItem("accessToken");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -43,5 +42,5 @@ const authSlice = createSlice({
   },
 });
 
-// export const { logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

@@ -3,7 +3,6 @@ import Login from "./components/Login";
 import { HeroUIProvider } from "@heroui/react";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
-import Dashboard from "./components/Dashboard";
 import Employees from "./components/Employees";
 import Payroll from "./components/Payroll";
 import Leaves from "./components/Leaves";
@@ -11,6 +10,7 @@ import Statistics from "./components/Statistics";
 import Settings from "./components/Settings";
 import Help from "./components/Help";
 import AuthWrapper from "./utils/AuthWrapper";
+import Dashboard from "./components/dashboard/Dashboard";
 
 function App() {
   const auth = useSelector((state) => state.auth);

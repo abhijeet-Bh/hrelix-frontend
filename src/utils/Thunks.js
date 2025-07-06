@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const LOGIN_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080";
 
 export const authenticateUser = createAsyncThunk(
   "auth/authenticateUser",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${LOGIN_URL}/api/v1/auth/login`, {
+      const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
         email: username,
         password: password,
       });
@@ -32,7 +32,7 @@ export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
   async (_, { getState }) => {
     const { auth } = getState();
-    const response = await axios.get(`${LOGIN_URL}/api/v1/employees/profile`, {
+    const response = await axios.get(`${BASE_URL}/api/v1/employees/profile`, {
       headers: { Authorization: `Bearer ${auth.accessToken}` },
     });
     return response.data.data;
