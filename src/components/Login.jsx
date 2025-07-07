@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { authenticateUser } from "../utils/Thunks";
-import { Spinner } from "@heroui/react";
+import { Alert, Spinner } from "@heroui/react";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -80,10 +80,12 @@ export default function Login() {
           </div>
           <div>
             {auth.error != null ? (
-              <p className="mt-4 text-red-400 text-center">
-                Error:{" "}
-                <span className="text-red-500 font-bold"> {auth.error}</span>
-              </p>
+              <Alert
+                hideIconWrapper
+                color={"danger"}
+                title={`Error: ${auth.error}`}
+                className="mt-4"
+              />
             ) : null}
           </div>
         </form>
