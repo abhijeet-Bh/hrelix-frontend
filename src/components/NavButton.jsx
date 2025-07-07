@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-export default function NavButton({ to, icon, text }) {
+export default function NavButton({ to, icon, text, isCollapsed }) {
   return (
     <NavLink
       to={to}
@@ -12,8 +12,14 @@ export default function NavButton({ to, icon, text }) {
         } hover:bg-primaryDark/15`
       }
     >
-      <img src={icon} alt={`${text} icon`} className="h-[20px] mx-4" />
-      <p className="font-semibold">{text}</p>
+      <img
+        src={icon}
+        alt={`${text} icon`}
+        className={`h-[20px] ${isCollapsed ? "mx-auto" : "mx-4"}`}
+      />
+      {!isCollapsed && (
+        <p className="font-semibold whitespace-nowrap">{text}</p>
+      )}
     </NavLink>
   );
 }
