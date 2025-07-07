@@ -1,12 +1,16 @@
+// src/api/dashboardApi.js
 import axios from "axios";
+import { BASE_URL } from "./constants";
+import { store } from "../store"; // adjust path if needed
 
-const BASE_URL = "http://localhost:8080";
+export const fetchDashboardData = async () => {
+  const token = store.getState().auth.accessToken;
 
-export const fetchDashboardData = async (token) => {
   const response = await axios.get(`${BASE_URL}/api/v1/home`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
   return response.data.data;
 };

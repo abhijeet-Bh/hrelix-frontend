@@ -62,9 +62,11 @@ export default function Sidebar() {
       >
         <div className="flex flex-col mr-3">
           <p className="font-bold text-lg text-white/70">
-            {user.data.firstName}
+            {user.data ? user.data.firstName : "User"}
           </p>
-          <p className="font-bold text-xs text-white">{user.data.roles[0]}</p>
+          <p className="font-bold text-xs text-white">
+            {user.data ? user.data.roles[0] : "Role"}
+          </p>
         </div>
         <img src="icons/logout-icon.svg" alt="" className="h-[28px]" />
       </div>
