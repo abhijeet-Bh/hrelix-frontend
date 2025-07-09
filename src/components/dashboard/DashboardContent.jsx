@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useDashboard } from "./use-dashboard";
-import { Button, Chip, Tooltip as HeroTooltip } from "@heroui/react";
+import { Button, Chip, Tooltip as HeroTooltip, Link } from "@heroui/react";
 import { useNavigate } from "react-router";
 import {
   Bar,
@@ -62,11 +62,23 @@ export default function Dashboard() {
 
   return (
     <div className="p-6">
-      <div className="w-full flex flex-col justify-start mb-8">
-        <p className="text-primaryDark">Hello, Good Morning 👋</p>
-        <p className="font-bold text-pinkAccent">
-          {user.firstName} {user.lastName}
-        </p>
+      <div className="w-full justify-between flex flex-row items-center mb-8">
+        <div className="flex flex-col justify-start">
+          <p className="text-primaryDark">Hello, Good Morning 👋</p>
+          <p className="font-bold text-pinkAccent">
+            {user.firstName} {user.lastName}
+          </p>
+        </div>
+        <div className="bg-pinkAccent hover:bg-pink-500 cursor-pointer rounded-lg shadow-md">
+          <Link
+            cisExternal
+            showAnchorIcon
+            href="https://api-hrelix.blufin.co.in/swagger-ui/index.html"
+            className="mx-4 my-2 text-white"
+          >
+            Api Docs
+          </Link>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-x-6 gap-y-6 mb-6">
