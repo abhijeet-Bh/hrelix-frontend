@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <div className="bg-[url(images/login-page-bg.png)] w-screen h-screen bg-cover flex items-center justify-center">
-      <div className="w-[500px] h-[464px] bg-white flex flex-col rounded-xl items-center justify-center px-7">
+      <div className="w-[500px] h-[550px] bg-white flex flex-col rounded-xl items-center justify-center px-7">
         <div className="w-[200px]">
           <img src="icons/hrelix-logo.svg" alt="" />
         </div>
@@ -89,6 +89,11 @@ export default function Login() {
             ) : null}
           </div>
         </form>
+        <p className="pt-4 italic text-pink-400">
+          For testing, email:{" "}
+          <span className="text-green-500 font-bold">test.user@hrelix.com</span>{" "}
+          pass: <span className="text-green-500 font-bold">test@123</span>
+        </p>
       </div>
     </div>
   );
