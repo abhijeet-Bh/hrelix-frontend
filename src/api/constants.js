@@ -1,6 +1,6 @@
-const dev = true;
+const dev = false;
 
 const BASE_URL_DEV = "http://localhost:8080";
-const BASE_URL_PROD = "https://your-production-url.com";
+const BASE_URL_PROD = "https://api-hrelix.blufin.co.in/";
 
 export const BASE_URL = dev ? BASE_URL_DEV : BASE_URL_PROD;
