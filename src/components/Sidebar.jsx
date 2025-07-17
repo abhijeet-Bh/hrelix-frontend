@@ -87,10 +87,10 @@ export default function Sidebar() {
           <p className="text-xs font-bold w-full text-primaryDark mt-1">
             © HRelix Inc. 2025
           </p>
-          <p className="text-xs w-full text-primaryLight mt-3">
+          {/* <p className="text-xs w-full text-primaryLight mt-3">
             Software made for the internal use of the company. Share access to
             thirdparty (i.e. person(s) or organization(s)) is prohibited.
-          </p>
+          </p> */}
         </>
       )}
 
@@ -119,9 +119,15 @@ export default function Sidebar() {
         <img src="icons/logout-icon.svg" alt="Logout" className="h-[28px]" />
       </div>
 
+      {!isCollapsed && (
+        <p className="w-full text-end mt-2 text-primaryLight">
+          version: <span className="font-bold">v1.0.1</span>
+        </p>
+      )}
+
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className={`text-white p-2 rounded  mt-2 flex flex-row w-full ${
+        className={`text-white p-2 rounded  mt-1 flex flex-row w-full ${
           isCollapsed ? "justify-center" : "justify-end"
         }`}
       >

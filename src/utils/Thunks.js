@@ -29,11 +29,23 @@ export const authenticateUser = createAsyncThunk(
 // Profile
 export const fetchProfile = createAsyncThunk(
   "profile/fetchProfile",
-  async (_, { getState }) => {
-    const { auth } = getState();
-    const response = await axios.get(`${BASE_URL}/api/v1/employees/profile`, {
-      headers: { Authorization: `Bearer ${auth.accessToken}` },
-    });
-    return response.data.data;
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { auth } = getState();
+      const response = await axios.get(`${BASE_URL}/api/v1/employees/profile`, {
+        headers: { Authorization: `Bearer ${auth.accessToken}` },
+      });
+
+      // This becomes the action.payload in the fulfilled reducer
+      return {
+        data: response.data,
+        status: response.status,
+      };
+    } catch (e) {
+      return rejectWithValue({
+        data: e.response?.data || null,
+        status: e.response?.status || 500,
+      });
+    }
   }
 );
