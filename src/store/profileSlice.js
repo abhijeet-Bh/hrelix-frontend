@@ -5,6 +5,7 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: {
     data: null,
+    status: null,
     loading: false,
     error: null,
   },
@@ -16,13 +17,20 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.data = action.payload;
+        console.log(action.payload);
+        if (action.payload.data.success) {
+          state.data = action.payload.data.data;
+          state.status = action.payload.status;
+        } else {
+          state.error = action.payload.message;
+        }
         state.loading = false;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
+        console.log(action.payload.data);
+        state.status = action.payload.status;
         state.loading = false;
-        console.log(action.error);
-        state.error = action.error.message;
+        state.error = action.payload.data.message;
       });
   },
 });

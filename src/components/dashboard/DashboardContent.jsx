@@ -10,13 +10,16 @@ import {
   LabelList,
   XAxis,
 } from "recharts";
+import LoadingScreen from "../LoadingScreen";
+import ErrorSessionExpired from "../errorSessionExpired";
 
 export default function Dashboard() {
   const { dashboard, loading, error } = useDashboard();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.profile.data);
+  const user = useSelector((state) => state.profile);
 
-  if (loading) return <p className="text-blue-500">Loading...</p>;
+  if (loading) return <LoadingScreen />;
+  if (user.status !== 200) return <ErrorSessionExpired error={user.error} />;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!dashboard) return null;
 
@@ -66,7 +69,7 @@ export default function Dashboard() {
         <div className="flex flex-col justify-start">
           <p className="text-primaryDark">Hello, Good Morning 👋</p>
           <p className="font-bold text-pinkAccent">
-            {user.firstName} {user.lastName}
+            {user.data.firstName} {user.data.lastName}
           </p>
         </div>
         <div className="bg-pinkAccent hover:bg-pink-500 cursor-pointer rounded-lg shadow-md">
