@@ -1,12 +1,4 @@
-import { useDispatch } from "react-redux";
-import { logout } from "../store/authSlice";
-
-export default function ErrorSessionExpired({ error }) {
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
+export default function ErrorSessionExpired({ error, callBack, text }) {
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       {error}
@@ -17,9 +9,9 @@ export default function ErrorSessionExpired({ error }) {
           text-white font-bold
           h-150 mt-6 py-2 flex flex-row cursor-pointer items-center bg-red-400 rounded-md
         `}
-        onClick={handleLogout}
+        onClick={callBack ? callBack : null}
       >
-        Login
+        {text ? text : "Login"}
       </div>
     </div>
   );

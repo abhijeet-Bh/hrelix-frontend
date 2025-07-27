@@ -13,13 +13,30 @@ import {
 import LoadingScreen from "../LoadingScreen";
 import ErrorSessionExpired from "../errorSessionExpired";
 
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authSlice";
+
 export default function Dashboard() {
-  const { dashboard, loading, error } = useDashboard();
+  const { dashboard, loading, error, refetch } = useDashboard();
   const navigate = useNavigate();
   const user = useSelector((state) => state.profile);
 
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   if (loading) return <LoadingScreen />;
-  if (user.status !== 200) return <ErrorSessionExpired error={user.error} />;
+  if (user.status >= 500)
+    return (
+      <ErrorSessionExpired
+        error="Something went wrong, please try again!"
+        text={"Refresh"}
+        callBack={refetch}
+      />
+    );
+  if (user.status !== 200)
+    return <ErrorSessionExpired error={user.error} callBack={handleLogout} />;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!dashboard) return null;
 

@@ -17,20 +17,19 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        console.log(action.payload);
         if (action.payload.data.success) {
           state.data = action.payload.data.data;
           state.status = action.payload.status;
         } else {
-          state.error = action.payload.message;
+          state.error =
+            action.payload.message || "Failed to load profile data!";
         }
         state.loading = false;
       })
       .addCase(fetchProfile.rejected, (state, action) => {
-        console.log(action.payload.data);
         state.status = action.payload.status;
         state.loading = false;
-        state.error = action.payload.data.message;
+        state.error = action.payload.data?.message || "Failed to load data!";
       });
   },
 });
