@@ -81,13 +81,21 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-6">
-      <div className="w-full justify-between flex flex-row items-center mb-8">
-        <div className="flex flex-col justify-start">
-          <p className="text-primaryDark">Hello, Good Morning 👋</p>
-          <p className="font-bold text-pinkAccent">
-            {user.data.firstName} {user.data.lastName}
-          </p>
+    <div className="p-1">
+      <div className="w-full justify-between flex flex-row items-center mb-8 sticky top-0 bg-[#f5f3ff] z-[2]">
+        <div className="flex flex-row h-[80px] items-center mt-4">
+          <img
+            src={user.data.avatar}
+            alt=""
+            className="bg-cover rounded-full mr-3 h-12 w-12"
+          />
+
+          <div className="flex flex-col justify-start">
+            <p className="text-primaryDark">Hello, Good Morning 👋</p>
+            <p className="font-bold text-pinkAccent">
+              {user.data.firstName} {user.data.lastName}
+            </p>
+          </div>
         </div>
         <div className="bg-pinkAccent hover:bg-pink-500 cursor-pointer rounded-lg shadow-md">
           <Link
@@ -164,6 +172,7 @@ export default function Dashboard() {
               radius="sm"
               size="sm"
               onPress={() => navigate("/employee-leaves")}
+              className="z-[1]"
             >
               <span className="text-white font-bold">
                 {dashboard.pendingLeaves.length} Leaves are Pending

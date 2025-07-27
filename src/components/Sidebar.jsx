@@ -22,7 +22,7 @@ export default function Sidebar() {
       transition-all duration-300 ease-in-out
     `}
     >
-      <div className="w-full h-[56px] bg-primaryDark flex justify-center items-center my-8 rounded-lg px-4">
+      <div className="w-full h-[56px] bg-primaryDark flex justify-center items-center my-8 rounded-lg p-4">
         <img
           src={`${
             isCollapsed
@@ -100,7 +100,7 @@ export default function Sidebar() {
           ${
             isCollapsed
               ? "w-[60px] justify-center"
-              : "w-full px-8 justify-between"
+              : "w-full px-6 justify-between"
           }
           h-150 mt-6 py-2 flex flex-row cursor-pointer items-center bg-red-400 rounded-md
         `}
