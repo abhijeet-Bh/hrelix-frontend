@@ -11,10 +11,10 @@ import {
   XAxis,
 } from "recharts";
 import LoadingScreen from "../LoadingScreen";
-import ErrorSessionExpired from "../errorSessionExpired";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
+import ErrorScreen from "../ErrorScreen";
 
 export default function Dashboard() {
   const { dashboard, loading, error, refetch } = useDashboard();
@@ -29,14 +29,14 @@ export default function Dashboard() {
   if (loading) return <LoadingScreen />;
   if (user.status >= 500)
     return (
-      <ErrorSessionExpired
+      <ErrorScreen
         error="Something went wrong, please try again!"
         text={"Refresh"}
         callBack={refetch}
       />
     );
   if (user.status !== 200)
-    return <ErrorSessionExpired error={user.error} callBack={handleLogout} />;
+    return <ErrorScreen error={user.error} callBack={handleLogout} />;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!dashboard) return null;
 

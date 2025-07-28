@@ -1,5 +1,10 @@
+import { EmployeeProvider } from "./EmployeeContext";
 import EmployeesContent from "./EmployeesContent";
 
 export default function Employees() {
-  return <EmployeesContent />;
+  return (
+    <EmployeeProvider>
+      <EmployeesContent />
+    </EmployeeProvider>
+  );
 }
