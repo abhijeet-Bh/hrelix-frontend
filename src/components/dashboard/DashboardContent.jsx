@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   if (loading)
     return (
-      <div className="h-full w-full">
+      <div className="h-screen w-screen">
         <LoadingScreen />
       </div>
     );
@@ -100,7 +100,7 @@ export default function Dashboard() {
           <img
             src={user.data.avatar}
             alt=""
-            className="bg-cover rounded-full mr-3 h-12 w-12"
+            className="bg-cover object-cover rounded-full mr-3 h-12 w-12"
           />
 
           <div className="flex flex-col justify-start">
