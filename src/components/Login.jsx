@@ -24,7 +24,7 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-[url(images/login-page-bg.png)] w-screen h-screen bg-cover flex items-center justify-center">
+    <div className="bg-gradient-to-br from-secondary to-primaryDark/70 w-screen h-screen flex items-center justify-center">
       <div className="w-[500px] h-[550px] bg-white flex flex-col rounded-xl items-center justify-center px-7">
         <div className="w-[200px]">
           <img src="icons/hrelix-logo.svg" alt="" />

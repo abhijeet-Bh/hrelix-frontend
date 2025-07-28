@@ -13,7 +13,7 @@ export function DashboardProvider({ children }) {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const data = await fetchDashboardData(accessToken);
+      const data = await fetchDashboardData();
       setDashboard(data);
     } catch (err) {
       setError(err.message || "Failed to load dashboard");
@@ -26,7 +26,7 @@ export function DashboardProvider({ children }) {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        const data = await fetchDashboardData(accessToken);
+        const data = await fetchDashboardData();
         setDashboard(data);
       } catch (err) {
         setError(err.message || "Failed to load dashboard");

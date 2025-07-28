@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="w-screen h-screen flex">
       {user.status === 200 ? <Sidebar /> : null}
-      <div className="flex-1 p-8 overflow-auto">
+      <div className="flex-1 px-8 overflow-auto">
         <Outlet />
       </div>
     </div>

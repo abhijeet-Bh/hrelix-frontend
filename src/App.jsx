@@ -3,7 +3,7 @@ import Login from "./components/Login";
 import { HeroUIProvider } from "@heroui/react";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
-import Employees from "./components/Employees";
+import Employees from "./components/employees/Employees";
 import Payroll from "./components/Payroll";
 import Leaves from "./components/Leaves";
 import Statistics from "./components/Statistics";
