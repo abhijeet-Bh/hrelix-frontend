@@ -26,17 +26,30 @@ export default function Dashboard() {
     dispatch(logout());
   };
 
-  if (loading) return <LoadingScreen />;
+  if (loading)
+    return (
+      <div className="h-full w-full">
+        <LoadingScreen />
+      </div>
+    );
   if (user.status >= 500)
     return (
       <ErrorScreen
         error="Something went wrong, please try again!"
         text={"Refresh"}
         callBack={refetch}
+        isButtonEnabled={true}
       />
     );
   if (user.status !== 200)
-    return <ErrorScreen error={user.error} callBack={handleLogout} />;
+    return (
+      <ErrorScreen
+        error={user.error}
+        callBack={handleLogout}
+        text="Log In"
+        isButtonEnabled={true}
+      />
+    );
   if (error) return <p className="text-red-500">{error}</p>;
   if (!dashboard) return null;
 

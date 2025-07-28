@@ -121,7 +121,7 @@ export default function Sidebar() {
 
       {!isCollapsed && (
         <p className="w-full text-end mt-2 text-primaryLight">
-          version: <span className="font-bold">v1.0.3</span>
+          version: <span className="font-bold">v1.2.1</span>
         </p>
       )}
 
