@@ -16,6 +16,9 @@ export default {
         accent: "#fff2af",
         pinkAccent: "#DD88CF",
       },
+      dropShadow: {
+        button: "2px 2px 2px rgba(0, 0, 0, 0.50)",
+      },
     },
   },
   darkMode: "class",

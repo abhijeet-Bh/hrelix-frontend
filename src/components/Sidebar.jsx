@@ -96,7 +96,7 @@ export default function Sidebar() {
 
       <div
         className={`
-          shadow-md hover:bg-red-500 transition-all delay-75 
+          drop-shadow-button hover:bg-red-500 transition-all delay-75 
           ${
             isCollapsed
               ? "w-[60px] justify-center"
