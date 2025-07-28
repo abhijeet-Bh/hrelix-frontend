@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   if (loading)
     return (
-      <div className="h-full w-full">
+      <div className="h-screen w-full">
         <LoadingScreen />
       </div>
     );
