@@ -1,17 +1,24 @@
 import ErrorScreen from "../ErrorScreen";
 import LoadingScreen from "../LoadingScreen";
+import EmployeeList from "./EmployeeList";
 import NoResult from "./NoResult";
-import SearchResult from "./SearchResult";
 import { useEmployee } from "./use-employee";
 
 export default function EmployeesContent() {
-  const { searchResult, loading, error, searchEmployee } = useEmployee();
+  const {
+    employeeList,
+    loading,
+    error,
+    searchEmployeeEmailOrname,
+    fetchAllEmployees,
+  } = useEmployee();
 
   async function searchEmp(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const email = formData.get("email");
-    await searchEmployee(email);
+    const key = formData.get("key");
+    await searchEmployeeEmailOrname(key);
+    e.target.reset();
   }
 
   return (
@@ -33,34 +40,53 @@ export default function EmployeesContent() {
           >
             <input
               type="text"
-              name="email"
+              name="key"
               className="rounded-lg w-full px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary text-primaryDark placeholder:text-primaryLight"
-              placeholder="Enter employee email to search..."
+              placeholder="Enter employee Email or Name to search..."
             />
             <button
-              className="px-20 text-sm text-primaryDark font-semibold py-2 rounded-md ml-4 drop-shadow-button cursor-pointer bg-accent"
+              className="px-6 text-sm text-primaryDark font-semibold py-2 rounded-md ml-4 drop-shadow-button cursor-pointer bg-accent"
               type="submit"
             >
-              Go
+              Search
+            </button>
+            <button
+              className="px-2 w-[200px] text-sm text-white font-semibold py-2 rounded-md ml-4 drop-shadow-button cursor-pointer bg-pinkAccent"
+              onClick={fetchAllEmployees}
+            >
+              All Employees
             </button>
           </form>
         </div>
       </div>
-      <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
-        <SearchResultSection
-          loading={loading}
-          error={error}
-          searchResult={searchResult}
-        />
-      </div>
+      <SearchResultSection
+        loading={loading}
+        error={error}
+        employeeList={employeeList}
+      />
     </div>
   );
 }
 
-export function SearchResultSection({ loading, error, searchResult }) {
-  if (loading) return <LoadingScreen />;
-  if (error) return <ErrorScreen error={error} />;
-  if (!searchResult) return <NoResult />;
+export function SearchResultSection({ loading, error, employeeList }) {
+  if (loading)
+    return (
+      <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
+        <LoadingScreen />
+      </div>
+    );
+  if (error)
+    return (
+      <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
+        <ErrorScreen error={error} />
+      </div>
+    );
+  if (!employeeList || employeeList.length < 1)
+    return (
+      <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
+        <NoResult />
+      </div>
+    );
 
-  return <SearchResult searchResult={searchResult} />;
+  return <EmployeeList employeeList={employeeList} />;
 }
