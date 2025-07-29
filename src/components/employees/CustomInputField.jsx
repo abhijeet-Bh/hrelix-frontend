@@ -44,7 +44,7 @@ export default function CustomInputField({
             onClick={handleCopy}
             className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-200"
           >
-            <img src="icons/copy-icon.svg" alt="" className="w-5 h-5" />
+            <img src="/icons/copy-icon.svg" alt="" className="w-5 h-5" />
           </button>
         )}
         {copied && (

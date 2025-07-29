@@ -13,6 +13,7 @@ import AuthWrapper from "./utils/AuthWrapper";
 import Dashboard from "./components/dashboard/Dashboard";
 import ErrorScreen from "./components/ErrorScreen";
 import { useIsMobile } from "./utils/useIsMobile";
+import EmployeeDetails from "./components/employees/EmployeeDetails";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -49,6 +50,7 @@ function App() {
             <Route path="statistics" element={<Statistics />} />
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
+            <Route path="employee-details/:id" element={<EmployeeDetails />} />
           </Route>
           <Route
             path="/login"

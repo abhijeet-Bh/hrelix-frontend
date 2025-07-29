@@ -8,64 +8,80 @@ import {
   Tooltip,
 } from "@heroui/react";
 import { useCallback } from "react";
+import { useNavigate } from "react-router";
 
 export default function EmployeeList({ employeeList }) {
-  console.log(employeeList);
-  const renderCell = useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
+  const navigate = useNavigate();
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <div className="flex flex-row items-center justify-start gap-2">
-            <img src={user.avatar} alt="" className="w-12 h-12 rounded-lg" />
-            <div className="flex flex-col items-start justify-center">
-              <p className="text-primaryDark text-lg font-semibold">
-                {user.firstName} {user.lastName}
-              </p>
-              <p className="text-primaryDark/50 text-sm">{user.email}</p>
+  const handleView = useCallback(
+    (id) => {
+      console.log("called");
+      navigate(`/employee-details/${id}`);
+    },
+    [navigate]
+  );
+
+  const renderCell = useCallback(
+    (user, columnKey) => {
+      const cellValue = user[columnKey];
+
+      switch (columnKey) {
+        case "name":
+          return (
+            <div className="flex flex-row items-center justify-start gap-2">
+              <img src={user.avatar} alt="" className="w-12 h-12 rounded-lg" />
+              <div className="flex flex-col items-start justify-center">
+                <p className="text-primaryDark text-lg font-semibold">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="text-primaryDark/50 text-sm">{user.email}</p>
+              </div>
             </div>
-          </div>
-        );
-      case "position":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
+          );
+        case "position":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-sm capitalize">{cellValue}</p>
+              <p className="text-bold text-sm capitalize text-default-400">
+                {user.team}
+              </p>
+            </div>
+          );
+        case "roles":
+          return (
+            <p className="text-pinkAccent font-semibold text-sm">
+              {user.roles[0]}
             </p>
-          </div>
-        );
-      case "roles":
-        return (
-          <p className="text-pinkAccent font-semibold text-sm">
-            {user.roles[0]}
-          </p>
-        );
-      case "actions":
-        return (
-          <div className="flex flex-row items-center justify-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+          );
+        case "actions":
+          return (
+            <div className="flex flex-row items-center justify-center gap-2">
+              <Tooltip content="Details">
+                <span
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                  onClick={() => handleView(user.email)}
+                >
+                  <EyeIcon />
+                </span>
+              </Tooltip>
+              <Tooltip content="Edit user">
+                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                  <EditIcon />
+                </span>
+              </Tooltip>
+              <Tooltip color="danger" content="Delete user">
+                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                  <DeleteIcon />
+                </span>
+              </Tooltip>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [handleView]
+  );
 
   const columns = [
     { name: "NAME", uid: "name" },

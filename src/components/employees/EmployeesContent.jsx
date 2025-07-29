@@ -41,7 +41,7 @@ export default function EmployeesContent() {
             <input
               type="text"
               name="key"
-              className="rounded-lg w-full px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary text-primaryDark placeholder:text-primaryLight"
+              className="rounded-lg w-full px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50 text-primaryDark placeholder:text-primaryLight"
               placeholder="Enter employee Email or Name to search..."
             />
             <button

@@ -26,8 +26,8 @@ export default function Sidebar() {
         <img
           src={`${
             isCollapsed
-              ? "icons/hrelix-icon.svg"
-              : "icons/hrelix-logo-white.svg"
+              ? "/icons/hrelix-icon.svg"
+              : "/icons/hrelix-logo-white.svg"
           }`}
           alt="HRelix Logo"
           className="h-[36px] w-[120px]"
@@ -36,31 +36,31 @@ export default function Sidebar() {
 
       <NavButton
         to="/dashboard"
-        icon="icons/home-icon.svg"
+        icon="/icons/home-icon.svg"
         text="Dashboard"
         isCollapsed={isCollapsed}
       />
       <NavButton
         to="/employees"
-        icon="icons/employees-icon.svg"
+        icon="/icons/employees-icon.svg"
         text="Employees"
         isCollapsed={isCollapsed}
       />
       <NavButton
         to="/payroll"
-        icon="icons/payroll-icon.svg"
+        icon="/icons/payroll-icon.svg"
         text="Payroll"
         isCollapsed={isCollapsed}
       />
       <NavButton
         to="/employee-leaves"
-        icon="icons/leaves-icon.svg"
+        icon="/icons/leaves-icon.svg"
         text="Employee Leaves"
         isCollapsed={isCollapsed}
       />
       <NavButton
         to="/statistics"
-        icon="icons/stats-icon.svg"
+        icon="/icons/stats-icon.svg"
         text="Statistics"
         isCollapsed={isCollapsed}
       />
@@ -69,13 +69,13 @@ export default function Sidebar() {
 
       <NavButton
         to="/settings"
-        icon="icons/settings-icon.svg"
+        icon="/icons/settings-icon.svg"
         text="Settings"
         isCollapsed={isCollapsed}
       />
       <NavButton
         to="/help"
-        icon="icons/help-icon.svg"
+        icon="/icons/help-icon.svg"
         text="Help"
         isCollapsed={isCollapsed}
       />
@@ -116,7 +116,7 @@ export default function Sidebar() {
             </p>
           </div>
         )}
-        <img src="icons/logout-icon.svg" alt="Logout" className="h-[28px]" />
+        <img src="/icons/logout-icon.svg" alt="Logout" className="h-[28px]" />
       </div>
 
       {!isCollapsed && (
@@ -132,7 +132,7 @@ export default function Sidebar() {
         }`}
       >
         <img
-          src={isCollapsed ? "icons/right-icon.svg" : "icons/left-icon.svg"}
+          src={isCollapsed ? "/icons/right-icon.svg" : "/icons/left-icon.svg"}
           alt="Toggle sidebar"
           className="h-[30px] "
         />
