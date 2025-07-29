@@ -7,7 +7,7 @@ export default function ErrorScreen({
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <p className="text-4xl mb-2 text-primaryDark">Oops!</p>
-      <p className="text-red-500 text-lg font-medium">{error}</p>
+      <p className="text-red-500 text-lg font-medium text-center">{error}</p>
       {isButtonEnabled && (
         <div
           className={`

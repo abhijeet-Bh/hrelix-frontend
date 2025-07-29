@@ -11,9 +11,19 @@ import Settings from "./components/Settings";
 import Help from "./components/Help";
 import AuthWrapper from "./utils/AuthWrapper";
 import Dashboard from "./components/dashboard/Dashboard";
+import ErrorScreen from "./components/ErrorScreen";
+import { useIsMobile } from "./utils/useIsMobile";
 
 function App() {
   const auth = useSelector((state) => state.auth);
+  const isMobile = useIsMobile();
+
+  if (isMobile)
+    return (
+      <div className="w-screen h-screen px-4">
+        <ErrorScreen error="This contents of this site difficult to access in small screen, please us Desktop!" />
+      </div>
+    );
 
   return (
     <HeroUIProvider>
