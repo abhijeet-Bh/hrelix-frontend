@@ -43,7 +43,7 @@ export default function DeductionTab({ employeeData, setEmployeeData }) {
         onChange={(e) =>
           setDeductions({ ...deductions, epf: Number(e.target.value) })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter EPF amount"
         type="number"
         editable={true}
       />
@@ -60,12 +60,14 @@ export default function DeductionTab({ employeeData, setEmployeeData }) {
             professionalTax: Number(e.target.value),
           })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter professional tax amount"
         type="number"
         editable={true}
       />
       <div className="text-gray-500 text-sm text-end">
-        {formatINRCurrency(Number(deductions.professionalTax))}
+        {`${formatINRCurrency(
+          Number(deductions.professionalTax)
+        )} - 12% of basic pay`}
       </div>
 
       <CustomInputField
@@ -74,7 +76,7 @@ export default function DeductionTab({ employeeData, setEmployeeData }) {
         onChange={(e) =>
           setDeductions({ ...deductions, tds: Number(e.target.value) })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter TDS amount"
         type="number"
         editable={true}
       />
@@ -91,7 +93,7 @@ export default function DeductionTab({ employeeData, setEmployeeData }) {
             otherDeductions: Number(e.target.value),
           })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter other deductions amount"
         type="number"
         editable={true}
       />

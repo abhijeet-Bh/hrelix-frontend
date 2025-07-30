@@ -5,6 +5,7 @@ import LoadingScreen from "../LoadingScreen";
 import { searchEmployeeByEmail } from "../../api/employeeApi";
 import ErrorScreen from "../ErrorScreen";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
+import ProfileImage from "./ProfileImage";
 
 export default function EmployeeDetails() {
   const [employeeData, setEmployeeData] = useState(null);
@@ -53,18 +54,10 @@ export default function EmployeeDetails() {
             </p>
             <img src="/icons/copy-icon.svg" alt="" className="w-5 h-5 ml-2" />
           </div>
-          <div className="relative h-80 w-full rounded-xl my-3 overflow-hidden">
-            <img
-              src={employeeData.employee.avatar}
-              alt="Profile"
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-black/50 h-16 w-full flex flex-row justify-end items-center">
-              <button className="bg-accent/20 text-accent text-sm mx-4 p-2 rounded-lg">
-                Change profile picture
-              </button>
-            </div>
-          </div>
+          <ProfileImage
+            employeeData={employeeData}
+            setEmployeeData={setEmployeeData}
+          />
           <CustomInputField
             label="Role"
             value={employeeData.employee.roles[0]}

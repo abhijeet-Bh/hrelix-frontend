@@ -21,9 +21,7 @@ export default function CustomInputField({
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
-        <label className="text-primaryLight font-semibold text-lg">
-          {label}
-        </label>
+        <label className="text-primaryLight text-base mb-1">{label}</label>
       )}
 
       <div className="relative">
@@ -33,7 +31,7 @@ export default function CustomInputField({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className="w-full px-4 py-3 pr-10 rounded-lg text-primaryDark font-semibold text-sm placeholder:text-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
+            className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
           />
         ) : (
           <div

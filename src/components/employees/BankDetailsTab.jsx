@@ -39,7 +39,7 @@ export default function BankDetailsTab({ employeeData, setEmployeeData }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 p-6">
       <CustomInputField
-        label="EPF Employer Providant fund (in ₹)"
+        label="Bank Name of Employee"
         value={bankDetail.bankName}
         onChange={(e) =>
           setBankDetail({ ...bankDetail, bankName: e.target.value })
@@ -49,7 +49,7 @@ export default function BankDetailsTab({ employeeData, setEmployeeData }) {
       />
 
       <CustomInputField
-        label="Prefessional Tax (in ₹)"
+        label="Account Number"
         value={bankDetail.bankAccountNumber}
         onChange={(e) =>
           setBankDetail({
@@ -62,7 +62,7 @@ export default function BankDetailsTab({ employeeData, setEmployeeData }) {
       />
 
       <CustomInputField
-        label="TDS (in ₹)"
+        label="IFSC Code"
         value={bankDetail.ifscCode}
         onChange={(e) =>
           setBankDetail({ ...bankDetail, ifscCode: e.target.value })

@@ -46,7 +46,7 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
         onChange={(e) =>
           setEmployeeCTC({ ...employeeCTC, basicPay: Number(e.target.value) })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter monthly basic pay"
         type="number"
         editable={true}
       />
@@ -63,7 +63,7 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
             houseRentAllowance: Number(e.target.value),
           })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter HRA amount"
         type="number"
         editable={true}
       />
@@ -80,7 +80,7 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
             specialAllowance: Number(e.target.value),
           })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter Special Allowance"
         type="number"
         editable={true}
       />
@@ -97,7 +97,7 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
             otherAllowance: Number(e.target.value),
           })
         }
-        placeholder="Enter CTC amount"
+        placeholder="Enter Other Allowance"
         type="number"
         editable={true}
       />

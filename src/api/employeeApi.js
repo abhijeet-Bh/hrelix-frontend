@@ -107,3 +107,26 @@ export const updateBankDetails = async (data) => {
     throw error;
   }
 };
+
+// Upload profile Picture
+export const uploadProfilePicture = async (employeeId, imageFile) => {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/v1/employees/${employeeId}/upload-profile`,
+      formData,
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading profile picture:", error);
+    throw error;
+  }
+};
