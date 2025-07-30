@@ -37,6 +37,16 @@ export default function EditEmployee({ defaultEmail = "" }) {
 
   const tabs = [
     {
+      id: "personal-info",
+      label: "Personal Info",
+      content: (
+        <PersonalDetailsTab
+          employeeData={employeeData}
+          setEmployeeData={setEmployeeData}
+        />
+      ),
+    },
+    {
       id: "ctc",
       label: "CTC",
       content: (
@@ -63,16 +73,6 @@ export default function EditEmployee({ defaultEmail = "" }) {
         />
       ),
     },
-    // {
-    //   id: "personal-info",
-    //   label: "Personal Info",
-    //   content: (
-    //     <PersonalDetailsTab
-    //       employeeData={employeeData}
-    //       setEmployeeData={setEmployeeData}
-    //     />
-    //   ),
-    // },
   ];
 
   return (

@@ -1,73 +1,120 @@
 import { Formik, Form } from "formik";
 import CustomInputField from "./CustomInputField";
 import { updatePersonalDetails } from "../../api/employeeApi";
+import { addToast } from "@heroui/react";
+import { useState } from "react";
 
 export default function PersonalDetailsTab({ employeeData, setEmployeeData }) {
-  const { employee } = employeeData || {};
+  const [employeeDetails, setEmployeeDetails] = useState(
+    employeeData?.employee || {}
+  );
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await updatePersonalDetails(
+        employeeDetails.id,
+        employeeDetails
+      );
+      addToast({
+        title: res.success ? "Success!" : "Failed",
+        description: res.message,
+        // @ts-ignore
+        variant: "solid",
+        color: res.success ? "success" : "danger",
+      });
+
+      setEmployeeData((prev) => ({
+        ...prev,
+        employee: employeeDetails,
+      }));
+    } catch (err) {
+      console.error("Employee Profile update error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={{
-        firstName: employee?.firstName || "",
-        lastName: employee?.lastName || "",
-        email: employee?.email || "",
-        phone: employee?.phone || "",
-        joiningDate: employee?.joiningDate || "",
-      }}
-      onSubmit={async (values) => {
-        try {
-          const updated = await updatePersonalDetails(employee.id, values);
-          setEmployeeData((prev) => ({
-            ...prev,
-            employee: { ...prev.employee, ...updated },
-          }));
-          alert("Personal details updated.");
-        } catch (err) {
-          console.error(err);
-          alert("Failed to update.");
+    <form onSubmit={handleSubmit} className="space-y-3 p-6">
+      <CustomInputField
+        label="First Name"
+        value={employeeDetails.firstName}
+        onChange={(e) =>
+          setEmployeeDetails({
+            ...employeeDetails,
+            firstName: e.target.value,
+          })
         }
-      }}
-    >
-      {({ values, handleChange }) => (
-        <Form className="space-y-6">
-          <CustomInputField
-            label="First Name"
-            value={values.firstName}
-            onChange={handleChange("firstName")}
-            editable
-          />
-          <CustomInputField
-            label="Last Name"
-            value={values.lastName}
-            onChange={handleChange("lastName")}
-            editable
-          />
-          <CustomInputField
-            label="Email"
-            value={values.email}
-            editable={false}
-          />
-          <CustomInputField
-            label="Phone"
-            value={values.phone}
-            onChange={handleChange("phone")}
-            editable
-          />
-          <CustomInputField
-            label="Joining Date"
-            value={values.joiningDate}
-            onChange={handleChange("joiningDate")}
-            editable
-          />
-          <button
-            type="submit"
-            className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold mt-4"
-          >
-            Save
-          </button>
-        </Form>
-      )}
-    </Formik>
+        placeholder="Enter First Name"
+        editable={true}
+      />
+      <CustomInputField
+        label="Last Name"
+        value={employeeDetails.lastName}
+        onChange={(e) =>
+          setEmployeeDetails({
+            ...employeeDetails,
+            lastName: e.target.value,
+          })
+        }
+        placeholder="Enter Last Name"
+        editable={true}
+      />
+      <CustomInputField
+        label="Email"
+        value={employeeDetails.email}
+        editable={false}
+        washed={true}
+      />
+      <CustomInputField
+        label="Phone"
+        value={employeeDetails.phone}
+        onChange={(e) =>
+          setEmployeeDetails({
+            ...employeeDetails,
+            phone: e.target.value,
+          })
+        }
+        editable={true}
+      />
+      <CustomInputField
+        label="Salary"
+        value={employeeDetails.salary}
+        onChange={(e) =>
+          setEmployeeDetails({
+            ...employeeDetails,
+            salary: e.target.value,
+          })
+        }
+        editable={true}
+      />
+      <CustomInputField
+        label="Joining Date"
+        value={employeeDetails.joiningDate}
+        editable={false}
+        washed={true}
+      />
+      <CustomInputField
+        label="Roles"
+        value={employeeDetails.roles}
+        onChange={(e) =>
+          setEmployeeDetails({
+            ...employeeDetails,
+            roles: e.target.value,
+          })
+        }
+        editable={true}
+      />
+      <button
+        type="submit"
+        className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold"
+        disabled={loading}
+      >
+        {loading ? "Updating..." : "Save Changes"}
+      </button>
+    </form>
   );
 }

@@ -8,6 +8,7 @@ export default function CustomInputField({
   placeholder = "",
   icon = false,
   type = "text",
+  washed = false,
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -36,7 +37,11 @@ export default function CustomInputField({
           />
         ) : (
           <div
-            className={`w-full px-4 py-3 pr-10 rounded-lg text-primaryDark font-semibold text-sm bg-secondary/30 ${
+            className={`${
+              washed
+                ? "cursor-not-allowed text-primaryDark/50"
+                : "text-primaryDark"
+            } w-full px-4 py-3 pr-10 rounded-lg  font-semibold text-sm bg-secondary/30 ${
               icon ? "select-text cursor-text" : "select-none cursor-default"
             }`}
           >
