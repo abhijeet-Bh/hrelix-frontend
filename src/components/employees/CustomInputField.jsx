@@ -1,22 +1,19 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 export default function CustomInputField({
   label,
   value,
-  editable = true,
+  editable = false,
   onChange = () => {},
   placeholder = "",
-  icon = false,
+  icon = false, // enables copy button
 }) {
-  const inputRef = useRef(null);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    if (inputRef.current) {
-      navigator.clipboard.writeText(value);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    }
+    navigator.clipboard.writeText(value);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
@@ -26,31 +23,41 @@ export default function CustomInputField({
           {label}
         </label>
       )}
+
       <div className="relative">
-        <input
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          readOnly={!editable}
-          className={`w-full px-4 py-3 pr-10 rounded-lg text-primaryDark font-semibold text-sm placeholder:text-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50 ${
-            !editable ? "cursor-default bg-secondary/30" : ""
-          }`}
-        />
-        {icon && (
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-200"
+        {editable ? (
+          <input
+            type="text"
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            className="w-full px-4 py-3 pr-10 rounded-lg text-primaryDark font-semibold text-sm placeholder:text-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
+          />
+        ) : (
+          <div
+            className={`w-full px-4 py-3 pr-10 rounded-lg text-primaryDark font-semibold text-sm bg-secondary/30 ${
+              icon ? "select-text cursor-text" : "select-none cursor-default"
+            }`}
           >
-            <img src="/icons/copy-icon.svg" alt="" className="w-5 h-5" />
-          </button>
+            {value}
+          </div>
         )}
-        {copied && (
-          <span className="absolute right-10 top-1/2 -translate-y-1/2 text-xs text-green-500 font-semibold">
-            Copied!
-          </span>
+
+        {!editable && icon && (
+          <>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-200"
+            >
+              <img src="/icons/copy-icon.svg" alt="Copy" className="w-5 h-5" />
+            </button>
+            {copied && (
+              <span className="absolute right-10 top-1/2 -translate-y-1/2 text-xs text-green-500 font-semibold">
+                Copied!
+              </span>
+            )}
+          </>
         )}
       </div>
     </div>

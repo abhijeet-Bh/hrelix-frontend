@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "../LoadingScreen";
 import { searchEmployeeByEmail } from "../../api/employeeApi";
 import ErrorScreen from "../ErrorScreen";
+import { formatINRCurrency } from "../../utils/UtilityFunctions";
 
 export default function EmployeeDetails() {
   const [employeeData, setEmployeeData] = useState(null);
@@ -79,12 +80,6 @@ export default function EmployeeDetails() {
             value={employeeData.employee.joiningDate}
             editable={false}
           />
-          <button
-            className="px-20 w-full text-sm text-accent font-semibold py-3 rounded-md mt-4 drop-shadow-button cursor-pointer bg-red-500"
-            type="submit"
-          >
-            Delete Employee
-          </button>
         </div>
 
         {/* Second Column */}
@@ -104,7 +99,7 @@ export default function EmployeeDetails() {
             />
             <CustomInputField
               label="Salary"
-              value={employeeData.employee.salary}
+              value={formatINRCurrency(employeeData.employee.salary)}
               editable={false}
             />
           </div>
@@ -128,12 +123,12 @@ export default function EmployeeDetails() {
               editable={false}
               icon={true}
             />
-            <button
+            {/* <button
               className="px-20 w-full text-sm text-primaryDark font-semibold py-3 rounded-md mt-4 drop-shadow-button cursor-pointer bg-accent"
               type="submit"
             >
               Save Changes
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -141,43 +136,37 @@ export default function EmployeeDetails() {
         <div className="flex flex-col w-full justify-between">
           <CustomInputField
             label="Basic Pay"
-            value={employeeData.employeeCTC.basicPay}
-            editable={true}
+            value={formatINRCurrency(employeeData.employeeCTC.basicPay)}
           />
           <CustomInputField
             label="HRA"
-            value={employeeData.employeeCTC.houseRentAllowance}
-            editable={true}
+            value={formatINRCurrency(
+              employeeData.employeeCTC.houseRentAllowance
+            )}
           />
           <CustomInputField
             label="Special Allowance"
-            value={employeeData.employeeCTC.specialAllowance}
-            editable={true}
+            value={formatINRCurrency(employeeData.employeeCTC.specialAllowance)}
           />
           <CustomInputField
             label="Other Allowance"
-            value={employeeData.employeeCTC.otherAllowance}
-            editable={true}
+            value={formatINRCurrency(employeeData.employeeCTC.otherAllowance)}
           />
           <CustomInputField
             label="Employee Provident Fund"
-            value={employeeData.deductions.epf}
-            editable={true}
+            value={formatINRCurrency(employeeData.deductions.epf)}
           />
           <CustomInputField
             label="Professional Tax"
-            value={employeeData.deductions.professionalTax}
-            editable={true}
+            value={formatINRCurrency(employeeData.deductions.professionalTax)}
           />
           <CustomInputField
             label="TDS (tax deduction at source)"
-            value={employeeData.deductions.tds}
-            editable={true}
+            value={formatINRCurrency(employeeData.deductions.tds)}
           />
           <CustomInputField
             label="Other Deductions"
-            value={employeeData.deductions.otherDeductions}
-            editable={false}
+            value={formatINRCurrency(employeeData.deductions.otherDeductions)}
           />
         </div>
       </div>
