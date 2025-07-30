@@ -41,7 +41,6 @@ export const getAllEmployees = async () => {
 
 // Update personal details
 export const updatePersonalDetails = async (id, data) => {
-  console.log(data);
   try {
     const response = await axios.put(
       `${BASE_URL}/api/v1/employees/${id}`,
@@ -53,7 +52,8 @@ export const updatePersonalDetails = async (id, data) => {
     return response.data;
   } catch (error) {
     console.error("Error updating personal details:", error);
-    throw error;
+    // throw error;
+    return error.response.data;
   }
 };
 
@@ -70,7 +70,8 @@ export const updateCTC = async (data) => {
     return response.data;
   } catch (error) {
     console.error("Error updating CTC:", error);
-    throw error;
+    // throw error;
+    return error.response.data;
   }
 };
 
@@ -87,7 +88,8 @@ export const updateDeductions = async (data) => {
     return response.data;
   } catch (error) {
     console.error("Error updating deductions:", error);
-    throw error;
+    // throw error;
+    return error.response.data;
   }
 };
 
@@ -104,7 +106,8 @@ export const updateBankDetails = async (data) => {
     return response.data;
   } catch (error) {
     console.error("Error updating bank details:", error);
-    throw error;
+    // throw error;
+    return error.response.data;
   }
 };
 

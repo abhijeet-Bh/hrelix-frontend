@@ -15,7 +15,6 @@ export default function EmployeeList({ employeeList }) {
 
   const handleView = useCallback(
     (id) => {
-      console.log("called");
       navigate(`/employee-details/${id}`);
     },
     [navigate]
@@ -36,7 +35,13 @@ export default function EmployeeList({ employeeList }) {
         case "name":
           return (
             <div className="flex flex-row items-center justify-start gap-2">
-              <img src={user.avatar} alt="" className="w-12 h-12 rounded-lg" />
+              <div className="mr-3 h-12 w-12 rounded-lg overflow-hidden">
+                <img
+                  src={user.avatar}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
+              </div>
               <div className="flex flex-col items-start justify-center">
                 <p className="text-primaryDark text-lg font-semibold">
                   {user.firstName} {user.lastName}

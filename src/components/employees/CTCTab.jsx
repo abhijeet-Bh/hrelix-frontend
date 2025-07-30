@@ -20,8 +20,10 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
         employee: employeeData.employee.id,
       });
       addToast({
-        title: res.success ? "Success!" : "Failed",
-        description: res.message,
+        title: res.success ? "Success!" : "Failed!",
+        description: res.success
+          ? res.message
+          : "Only 'HR' or 'ADMIN' can perform this Operation!",
         // @ts-ignore
         variant: "solid",
         color: res.success ? "success" : "danger",
