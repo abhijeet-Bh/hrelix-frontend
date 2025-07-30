@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Login from "./components/Login";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
 import Employees from "./components/employees/Employees";
@@ -11,12 +11,25 @@ import Settings from "./components/Settings";
 import Help from "./components/Help";
 import AuthWrapper from "./utils/AuthWrapper";
 import Dashboard from "./components/dashboard/Dashboard";
+import ErrorScreen from "./components/ErrorScreen";
+import { useIsMobile } from "./utils/useIsMobile";
+import EmployeeDetails from "./components/employees/EmployeeDetails";
+import EditEmployee from "./components/employees/EditEmployee";
 
 function App() {
   const auth = useSelector((state) => state.auth);
+  const isMobile = useIsMobile();
+
+  if (isMobile)
+    return (
+      <div className="w-screen h-screen px-4">
+        <ErrorScreen error="This contents of this site difficult to access in small screen, please us Desktop!" />
+      </div>
+    );
 
   return (
     <HeroUIProvider>
+      <ToastProvider />
       <BrowserRouter>
         <Routes>
           <Route
@@ -39,6 +52,8 @@ function App() {
             <Route path="statistics" element={<Statistics />} />
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
+            <Route path="employee-details/:id" element={<EmployeeDetails />} />
+            <Route path="edit-employee/:email?" element={<EditEmployee />} />
           </Route>
           <Route
             path="/login"
