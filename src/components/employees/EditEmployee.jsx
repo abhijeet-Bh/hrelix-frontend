@@ -79,15 +79,11 @@ export default function EditEmployee({ defaultEmail = "" }) {
     <div className="p-8">
       <form onSubmit={handleSearch} className="mb-6 flex gap-4">
         <CustomInputField
-          label="Search by Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button
-          type="submit"
-          className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold mt-auto"
-        >
-          {loading ? "Loading..." : "Search"}
+        <button className="px-6 py-2 rounded-lg bg-pinkAccent text-white font-semibold mt-auto">
+          {loading ? "Loading..." : "Fetched!"}
         </button>
       </form>
 
