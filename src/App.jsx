@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Login from "./components/Login";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
 import Employees from "./components/employees/Employees";
@@ -14,6 +14,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import ErrorScreen from "./components/ErrorScreen";
 import { useIsMobile } from "./utils/useIsMobile";
 import EmployeeDetails from "./components/employees/EmployeeDetails";
+import EditEmployee from "./components/employees/EditEmployee";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <HeroUIProvider>
+      <ToastProvider />
       <BrowserRouter>
         <Routes>
           <Route
@@ -51,6 +53,7 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
             <Route path="employee-details/:id" element={<EmployeeDetails />} />
+            <Route path="edit-employee/:email?" element={<EditEmployee />} />
           </Route>
           <Route
             path="/login"

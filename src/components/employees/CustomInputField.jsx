@@ -6,7 +6,8 @@ export default function CustomInputField({
   editable = false,
   onChange = () => {},
   placeholder = "",
-  icon = false, // enables copy button
+  icon = false,
+  type = "text",
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -27,7 +28,7 @@ export default function CustomInputField({
       <div className="relative">
         {editable ? (
           <input
-            type="text"
+            type={type}
             value={value}
             onChange={onChange}
             placeholder={placeholder}

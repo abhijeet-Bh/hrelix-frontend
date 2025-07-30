@@ -72,7 +72,7 @@ export default function EmployeeDetails() {
           />
           <CustomInputField
             label="Team"
-            value="Human Resource"
+            value={employeeData.employee.team}
             editable={false}
           />
           <CustomInputField
@@ -98,6 +98,11 @@ export default function EmployeeDetails() {
               icon={true}
             />
             <CustomInputField
+              label="Position"
+              value={employeeData.employee.position}
+              editable={false}
+            />
+            <CustomInputField
               label="Salary"
               value={formatINRCurrency(employeeData.employee.salary)}
               editable={false}
@@ -107,19 +112,19 @@ export default function EmployeeDetails() {
           <div className="flex flex-col gap-y-4">
             <CustomInputField
               label="Bank Name"
-              value={employeeData.bankAccountDetail.bankName}
+              value={employeeData.bankAccountDetail?.bankName || "N/A"}
               editable={false}
               icon={true}
             />
             <CustomInputField
               label="Account Number"
-              value={employeeData.bankAccountDetail.bankAccountNumber}
+              value={employeeData.bankAccountDetail?.bankAccountNumber || "N/A"}
               editable={false}
               icon={true}
             />
             <CustomInputField
               label="IFSC Number"
-              value={employeeData.bankAccountDetail.ifscCode}
+              value={employeeData.bankAccountDetail?.ifscCode || "N/A"}
               editable={false}
               icon={true}
             />
@@ -136,37 +141,51 @@ export default function EmployeeDetails() {
         <div className="flex flex-col w-full justify-between">
           <CustomInputField
             label="Basic Pay"
-            value={formatINRCurrency(employeeData.employeeCTC.basicPay)}
+            value={
+              formatINRCurrency(employeeData.employeeCTC?.basicPay) || "N/A"
+            }
           />
           <CustomInputField
             label="HRA"
             value={formatINRCurrency(
-              employeeData.employeeCTC.houseRentAllowance
+              employeeData.employeeCTC?.houseRentAllowance
             )}
           />
           <CustomInputField
             label="Special Allowance"
-            value={formatINRCurrency(employeeData.employeeCTC.specialAllowance)}
+            value={
+              formatINRCurrency(employeeData.employeeCTC?.specialAllowance) ||
+              "N/A"
+            }
           />
           <CustomInputField
             label="Other Allowance"
-            value={formatINRCurrency(employeeData.employeeCTC.otherAllowance)}
+            value={
+              formatINRCurrency(employeeData.employeeCTC?.otherAllowance) ||
+              "N/A"
+            }
           />
           <CustomInputField
             label="Employee Provident Fund"
-            value={formatINRCurrency(employeeData.deductions.epf)}
+            value={formatINRCurrency(employeeData.deductions?.epf) || "N/A"}
           />
           <CustomInputField
             label="Professional Tax"
-            value={formatINRCurrency(employeeData.deductions.professionalTax)}
+            value={
+              formatINRCurrency(employeeData.deductions?.professionalTax) ||
+              "N/A"
+            }
           />
           <CustomInputField
             label="TDS (tax deduction at source)"
-            value={formatINRCurrency(employeeData.deductions.tds)}
+            value={formatINRCurrency(employeeData.deductions?.tds) || "N/A"}
           />
           <CustomInputField
             label="Other Deductions"
-            value={formatINRCurrency(employeeData.deductions.otherDeductions)}
+            value={
+              formatINRCurrency(employeeData.deductions?.otherDeductions) ||
+              "N/A"
+            }
           />
         </div>
       </div>

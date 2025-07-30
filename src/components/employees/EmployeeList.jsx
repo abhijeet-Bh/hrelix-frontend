@@ -21,6 +21,13 @@ export default function EmployeeList({ employeeList }) {
     [navigate]
   );
 
+  const handleEdit = useCallback(
+    (email) => {
+      navigate(`/edit-employee/${email}`);
+    },
+    [navigate]
+  );
+
   const renderCell = useCallback(
     (user, columnKey) => {
       const cellValue = user[columnKey];
@@ -65,7 +72,10 @@ export default function EmployeeList({ employeeList }) {
                 </span>
               </Tooltip>
               <Tooltip content="Edit user">
-                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <span
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                  onClick={() => handleEdit(user.email)}
+                >
                   <EditIcon />
                 </span>
               </Tooltip>
