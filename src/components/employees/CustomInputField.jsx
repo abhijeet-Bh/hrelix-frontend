@@ -31,7 +31,7 @@ export default function CustomInputField({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
+            className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight/70 placeholder:font-normal placeholder:text-xs focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
           />
         ) : (
           <div

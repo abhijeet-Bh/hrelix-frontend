@@ -13,7 +13,6 @@ export default function ProfileImage({ employeeData, setEmployeeData }) {
     try {
       setUploading(true);
       const res = await uploadProfilePicture(employeeData.employee.id, file);
-      console.log(res);
 
       if (res?.success) {
         setEmployeeData((prev) => ({
@@ -64,15 +63,15 @@ export default function ProfileImage({ employeeData, setEmployeeData }) {
   // });
 
   return (
-    <div className="relative h-80 w-full rounded-xl my-3 overflow-hidden">
+    <div className="relative h-80 w-full bg-secondary/50 rounded-xl my-3 overflow-hidden">
       {!uploading ? (
         <img
-          src={employeeData.employee.avatar}
-          alt="Profile"
+          src={employeeData.employee?.avatar || ""}
+          alt=""
           className="object-cover w-full h-full"
         />
       ) : (
-        <div className="w-full h-full flex bg-secondary/50 justify-center items-center">
+        <div className="w-full h-full flex justify-center items-center">
           <CircularProgress aria-label="Loading..." color="danger" />
         </div>
       )}

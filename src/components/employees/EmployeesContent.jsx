@@ -1,16 +1,21 @@
+import { useState } from "react";
 import ErrorScreen from "../ErrorScreen";
 import LoadingScreen from "../LoadingScreen";
 import EmployeeList from "./EmployeeList";
 import NoResult from "./NoResult";
 import { useEmployee } from "./use-employee";
+import AddEmployeeModal from "./AddEmployeeModal";
 
 export default function EmployeesContent() {
+  const [showModal, setShowModal] = useState(false);
+
   const {
     employeeList,
     loading,
     error,
     searchEmployeeEmailOrname,
     fetchAllEmployees,
+    setEmployeeList,
   } = useEmployee();
 
   async function searchEmp(e) {
@@ -21,6 +26,10 @@ export default function EmployeesContent() {
     e.target.reset();
   }
 
+  const handleAddEmployee = (newEmployee) => {
+    setEmployeeList([newEmployee]); // or refetchAllEmployees()
+  };
+
   return (
     <div className="flex flex-col pb-8 px-2 ">
       <div className="sticky top-0 z-10 bg-[#f5f3ff] pt-8">
@@ -28,7 +37,10 @@ export default function EmployeesContent() {
           <p className="text-primaryDark font-bold text-2xl">
             Employees Management
           </p>
-          <div className="mr-4 cursor-pointer hover:bg-primaryDark/70 flex flex-row items-center justify-between gap-2 bg-primaryDark py-2 px-5 rounded-lg drop-shadow-button">
+          <div
+            className="mr-4 cursor-pointer hover:bg-primaryDark/70 flex flex-row items-center justify-between gap-2 bg-primaryDark py-2 px-5 rounded-lg drop-shadow-button"
+            onClick={() => setShowModal(true)}
+          >
             <img src="icons/add-emp-icon.svg" alt="" />
             <p className="text-accent text-sm font-semibold">Add Employee</p>
           </div>
@@ -64,6 +76,13 @@ export default function EmployeesContent() {
         error={error}
         employeeList={employeeList}
       />
+
+      {showModal && (
+        <AddEmployeeModal
+          onClose={() => setShowModal(false)}
+          onEmployeeAdded={handleAddEmployee}
+        />
+      )}
     </div>
   );
 }

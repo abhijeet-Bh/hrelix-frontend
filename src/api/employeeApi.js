@@ -133,3 +133,17 @@ export const uploadProfilePicture = async (employeeId, imageFile) => {
     throw error;
   }
 };
+
+// Create Employee
+export const createEmployee = async (data) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/api/v1/employees`, data, {
+      headers: getAuthHeaders(),
+    });
+    console.log(response.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    throw error;
+  }
+};
