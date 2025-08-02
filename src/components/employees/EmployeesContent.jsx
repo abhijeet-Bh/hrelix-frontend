@@ -5,6 +5,7 @@ import EmployeeList from "./EmployeeList";
 import NoResult from "./NoResult";
 import { useEmployee } from "./use-employee";
 import AddEmployeeModal from "./AddEmployeeModal";
+import { addToast } from "@heroui/react";
 
 export default function EmployeesContent() {
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +29,15 @@ export default function EmployeesContent() {
 
   const handleAddEmployee = (newEmployee) => {
     setEmployeeList([newEmployee]); // or refetchAllEmployees()
+  };
+
+  const showToast = (success, description, color) => {
+    addToast({
+      title: success ? "Success!" : "Failed!",
+      description: description,
+      variant: "solid",
+      color: color,
+    });
   };
 
   return (
@@ -75,6 +85,8 @@ export default function EmployeesContent() {
         loading={loading}
         error={error}
         employeeList={employeeList}
+        fetchAllEmployees={fetchAllEmployees}
+        showToast={showToast}
       />
 
       {showModal && (
@@ -87,7 +99,13 @@ export default function EmployeesContent() {
   );
 }
 
-export function SearchResultSection({ loading, error, employeeList }) {
+export function SearchResultSection({
+  loading,
+  error,
+  employeeList,
+  fetchAllEmployees,
+  showToast,
+}) {
   if (loading)
     return (
       <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
@@ -107,5 +125,11 @@ export function SearchResultSection({ loading, error, employeeList }) {
       </div>
     );
 
-  return <EmployeeList employeeList={employeeList} />;
+  return (
+    <EmployeeList
+      employeeList={employeeList}
+      reFresh={fetchAllEmployees}
+      showToast={showToast}
+    />
+  );
 }
