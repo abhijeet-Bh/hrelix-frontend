@@ -141,7 +141,7 @@ export const createEmployee = async (data) => {
     const response = await axios.post(`${BASE_URL}/api/v1/employees`, data, {
       headers: getAuthHeaders(),
     });
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error("Error creating employee:", error);
     // throw error;
