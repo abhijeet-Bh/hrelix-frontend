@@ -7,6 +7,7 @@ import DeductionTab from "./DeductionTab";
 import BankDetailsTab from "./BankDetailsTab";
 import PersonalDetailsTab from "./PersonalDetailsTab";
 import { searchEmployeeByEmail } from "../../api/employeeApi";
+import LoadingScreen from "../LoadingScreen";
 
 export default function EditEmployee({ defaultEmail = "" }) {
   const { email: emailParam } = useParams();
@@ -86,6 +87,8 @@ export default function EditEmployee({ defaultEmail = "" }) {
           {loading ? "Loading..." : "Fetched!"}
         </button>
       </form>
+
+      {loading && <LoadingScreen />}
 
       {employeeData && (
         <Tabs aria-label="Employee Tabs" items={tabs}>
