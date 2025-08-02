@@ -7,10 +7,13 @@ import {
   TableRow,
   Tooltip,
 } from "@heroui/react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
+import { deleteEmployee } from "../../api/employeeApi";
+import LoadingScreen from "../LoadingScreen";
 
-export default function EmployeeList({ employeeList }) {
+export default function EmployeeList({ employeeList, reFresh, showToast }) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleView = useCallback(
@@ -26,6 +29,39 @@ export default function EmployeeList({ employeeList }) {
     },
     [navigate]
   );
+
+  const handleDelete = async (id) => {
+    setLoading(true);
+    try {
+      const res = await deleteEmployee(id);
+      console.log(res);
+      if (res?.success) {
+        showToast(
+          true,
+          `Emplyee: ${res.data.firstName} deleted successfully!`,
+          "danger"
+        );
+        await reFresh();
+      } else {
+        showToast(
+          false,
+          res.error.message ||
+            "Only 'HR' or 'ADMIN' can perform this Operation!",
+          "danger"
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      showToast(
+        false,
+        err.response.data.error.message ||
+          "Only 'HR' or 'ADMIN' can perform this Operation!",
+        "danger"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const renderCell = useCallback(
     (user, columnKey) => {
@@ -85,7 +121,10 @@ export default function EmployeeList({ employeeList }) {
                 </span>
               </Tooltip>
               <Tooltip color="danger" content="Delete user">
-                <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <span
+                  className="text-lg text-danger cursor-pointer active:opacity-50"
+                  onClick={() => handleDelete(user.id)}
+                >
                   <DeleteIcon />
                 </span>
               </Tooltip>
@@ -105,8 +144,13 @@ export default function EmployeeList({ employeeList }) {
     { name: "ACTIONS", uid: "actions" },
   ];
   return (
-    <div className="h-full w-full flex flex-col items-start">
-      <Table isStriped aria-label="Example table with custom cells">
+    <div className="relative h-full w-full flex flex-col items-start">
+      {loading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/70">
+          <LoadingScreen />
+        </div>
+      )}
+      <Table isStriped>
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn

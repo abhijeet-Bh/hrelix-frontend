@@ -49,6 +49,7 @@ export function EmployeeProvider({ children }) {
         error,
         searchEmployeeEmailOrname,
         fetchAllEmployees,
+        setEmployeeList,
       }}
     >
       {children}

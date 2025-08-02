@@ -130,6 +130,35 @@ export const uploadProfilePicture = async (employeeId, imageFile) => {
     return response.data;
   } catch (error) {
     console.error("Error uploading profile picture:", error);
-    throw error;
+    // throw error;
+    return error.response.data;
+  }
+};
+
+// Create Employee
+export const createEmployee = async (data) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/api/v1/employees`, data, {
+      headers: getAuthHeaders(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    // throw error;
+    return error.response.data;
+  }
+};
+
+// Delete Employee
+export const deleteEmployee = async (id) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/api/v1/employees/${id}`, {
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    // throw error;
+    return error.response.data;
   }
 };
