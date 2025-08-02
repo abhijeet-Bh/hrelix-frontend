@@ -11,14 +11,18 @@ export default function StepOneForm({ onNext, onClose, showToast }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const createdEmployee = await createEmployee(newEmployee);
-      onNext(createdEmployee);
-      showToast(
-        true,
-        `Employee: ${newEmployee.firstName} Created Successfully!`
-      );
+      const response = await createEmployee(newEmployee);
+      if (response.status) {
+        onNext(response.data);
+        showToast(
+          true,
+          `Employee: ${newEmployee.firstName} Created Successfully!`
+        );
+      } else {
+        showToast(false, `Failed to create employee: ${response.message}`);
+      }
     } catch (err) {
-      showToast(true, `Failed to create employee: ${err}`);
+      showToast(false, `Failed to create employee: ${err}`);
     } finally {
       setLoading(false);
     }
