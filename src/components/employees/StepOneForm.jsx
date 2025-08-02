@@ -12,7 +12,7 @@ export default function StepOneForm({ onNext, onClose, showToast }) {
     setLoading(true);
     try {
       const response = await createEmployee(newEmployee);
-      if (response.status) {
+      if (response.success) {
         onNext(response.data);
         showToast(
           true,
