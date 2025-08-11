@@ -108,10 +108,11 @@ export function SearchResultSection({
 }) {
   if (loading)
     return (
-      <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">
+      <div className="relative h-full w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl">
         <LoadingScreen />
       </div>
     );
+
   if (error)
     return (
       <div className="w-full min-h-[600px] bg-white/50 border-white border-1 p-5 rounded-xl flex flex-col justify-center">

@@ -15,7 +15,11 @@ export default function AuthWrapper({ children }) {
   }, [isAuthenticated, accessToken, dispatch]);
 
   if (profileLoading) {
-    return <LoadingScreen />;
+    return (
+      <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex justify-center items-center">
+        <LoadingScreen />
+      </div>
+    );
   }
 
   return children;

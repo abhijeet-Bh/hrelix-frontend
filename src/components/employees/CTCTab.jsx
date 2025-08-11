@@ -2,7 +2,7 @@ import { useState } from "react";
 import CustomInputField from "./CustomInputField";
 import { updateCTC } from "../../api/employeeApi";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
-import { addToast } from "@heroui/react";
+import { addToast, Spinner } from "@heroui/react";
 import ErrorScreen from "../ErrorScreen";
 
 export default function CTCTab({ employeeData, setEmployeeData }) {
@@ -109,10 +109,12 @@ export default function CTCTab({ employeeData, setEmployeeData }) {
 
       <button
         type="submit"
-        className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold"
+        className={`px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold ${
+          loading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         disabled={loading}
       >
-        {loading ? "Updating..." : "Update CTC"}
+        {loading ? <Spinner /> : "Update CTC"}
       </button>
     </form>
   );

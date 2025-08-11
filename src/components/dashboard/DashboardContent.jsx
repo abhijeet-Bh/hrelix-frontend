@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   if (loading)
     return (
-      <div className="h-screen w-full">
+      <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex justify-center items-center">
         <LoadingScreen />
       </div>
     );

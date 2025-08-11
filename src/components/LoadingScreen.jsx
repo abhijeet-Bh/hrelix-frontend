@@ -2,10 +2,10 @@ import { Spinner } from "@heroui/react";
 
 function LoadingScreen() {
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="absolute inset-0 bg-white/20 backdrop-blur-sm flex justify-center items-center rounded-xl">
       <Spinner
         color="danger"
-        label="Loding, please wait ..."
+        label="Loading, please wait ..."
         labelColor="danger"
         variant="wave"
         size="lg"
