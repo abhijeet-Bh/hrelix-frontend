@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import Home from "./components/Home";
 import Employees from "./components/employees/Employees";
 import Payroll from "./components/Payroll";
-import Leaves from "./components/Leaves";
 import Statistics from "./components/Statistics";
 import Settings from "./components/Settings";
 import Help from "./components/Help";
@@ -15,6 +14,7 @@ import ErrorScreen from "./components/ErrorScreen";
 import { useIsMobile } from "./utils/useIsMobile";
 import EmployeeDetails from "./components/employees/EmployeeDetails";
 import EditEmployee from "./components/employees/EditEmployee";
+import Leaves from "./components/leaves/Leaves";
 
 function App() {
   const auth = useSelector((state) => state.auth);
