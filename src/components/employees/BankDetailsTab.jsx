@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CustomInputField from "./CustomInputField";
 import { updateBankDetails } from "../../api/employeeApi";
 import { addToast, Spinner } from "@heroui/react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function BankDetailsTab({ employeeData, setEmployeeData }) {
   const [bankDetail, setBankDetail] = useState(

@@ -1,11 +1,11 @@
 import { useParams } from "react-router";
-import CustomInputField from "./CustomInputField";
 import { useEffect, useState } from "react";
 import LoadingScreen from "../LoadingScreen";
 import { searchEmployeeByEmail } from "../../api/employeeApi";
 import ErrorScreen from "../ErrorScreen";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
 import ProfileImage from "./ProfileImage";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function EmployeeDetails() {
   const [employeeData, setEmployeeData] = useState(null);

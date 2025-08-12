@@ -1,8 +1,7 @@
-import { Formik, Form } from "formik";
-import CustomInputField from "./CustomInputField";
 import { updatePersonalDetails } from "../../api/employeeApi";
 import { addToast, Spinner } from "@heroui/react";
 import { useState } from "react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function PersonalDetailsTab({ employeeData, setEmployeeData }) {
   const [employeeDetails, setEmployeeDetails] = useState(

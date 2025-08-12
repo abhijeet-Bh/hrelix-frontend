@@ -1,8 +1,8 @@
 import { useState } from "react";
-import CustomInputField from "./CustomInputField";
 import { updateDeductions } from "../../api/employeeApi";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
 import { addToast, Spinner } from "@heroui/react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function DeductionTab({ employeeData, setEmployeeData }) {
   const [deductions, setDeductions] = useState(employeeData?.deductions || {});

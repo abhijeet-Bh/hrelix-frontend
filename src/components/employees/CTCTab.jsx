@@ -1,9 +1,8 @@
 import { useState } from "react";
-import CustomInputField from "./CustomInputField";
 import { updateCTC } from "../../api/employeeApi";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
 import { addToast, Spinner } from "@heroui/react";
-import ErrorScreen from "../ErrorScreen";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function CTCTab({ employeeData, setEmployeeData }) {
   const [employeeCTC, setEmployeeCTC] = useState(
