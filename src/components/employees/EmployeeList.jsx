@@ -151,7 +151,13 @@ export default function EmployeeList({ employeeList, reFresh, showToast }) {
         </div>
       )}
       {employeeList && (
-        <Table removeWrapper isStriped>
+        <Table
+          removeWrapper
+          classNames={{
+            tr: "even:bg-primaryDark/5 rounded-xl",
+            th: "bg-primaryDark text-white",
+          }}
+        >
           <TableHeader columns={columns}>
             {(column) => (
               <TableColumn

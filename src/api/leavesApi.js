@@ -17,7 +17,7 @@ export const addNewLeave = async (data) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error updating CTC:", error);
+    console.error("Error Adding Leave:", error);
     // throw error;
     return error.response.data;
   }
@@ -29,7 +29,7 @@ export const getLeaves = async (pageNo) => {
     const response = await axios.get(`${BASE_URL}/api/v1/leaves`, {
       params: {
         page: pageNo,
-        size: 2,
+        size: 25,
       },
       headers: getAuthHeaders(),
     });
@@ -37,5 +37,30 @@ export const getLeaves = async (pageNo) => {
   } catch (error) {
     console.log(error.response);
     return error.response?.data;
+  }
+};
+
+// Change status
+export const changeStatus = async (id, data) => {
+  try {
+    const formData = new URLSearchParams();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    const response = await axios.put(
+      `${BASE_URL}/api/v1/leaves/${id}/status`,
+      formData.toString(),
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating Leave:", error);
+    // throw error;
+    return error.response.data;
   }
 };

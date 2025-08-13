@@ -6,13 +6,27 @@ import LoadingScreen from "../../../shared/LoadingScreen";
 import ErrorScreen from "../../../shared/ErrorScreen";
 
 export default function LeavesContent() {
-  const { leaves, loading, error, fetchLeaves, pagination } = useLeaves();
+  const { leaves, loading, error, fetchLeaves, pagination, updateStatus } =
+    useLeaves();
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchLeaves(page);
   }, [page]);
+
+  const handleStatusChange = (id, data) => {
+    try {
+      updateStatus(id, data, page);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClose = async () => {
+    setShowModal(false);
+    fetchLeaves(page);
+  };
 
   return (
     <div className="p-8">
@@ -40,12 +54,21 @@ export default function LeavesContent() {
             loading={loading}
             totalPage={pagination.totalPage}
             currentPage={pagination.currentPage + 1}
+            handleStatusChange={handleStatusChange}
           />
         ) : (
-          "No Leaves data!"
+          <div className="flex flex-col justify-center items-center w-full h-full min-h-[600px] bg-white/50 border-white border-1 rounded-xl p-4">
+            <img src="/icons/search-icon.svg" alt="" className="w-[50px]" />
+            <p className="text-primaryDark font-semibold text-lg">
+              No Leaves to show!
+            </p>
+            <p className="text-primaryDark text-sm">
+              There is no applied leaves in the Database
+            </p>
+          </div>
         )}
       </div>
-      {showModal && <AddNewLeave onClose={() => setShowModal(false)} />}
+      {showModal && <AddNewLeave onClose={handleClose} />}
     </div>
   );
 }

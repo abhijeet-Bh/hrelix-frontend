@@ -1,31 +1,23 @@
 import React, { useState } from "react";
 import { addNewLeave } from "../../../api/leavesApi";
 import CustomInputField from "../../../shared/CustomInputField";
+import LoadingScreen from "../../../shared/LoadingScreen";
 
 export default function NewLeaveForm({ showToast, onClose }) {
   const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [type, setType] = useState("");
-  const [reason, setReason] = useState("");
+  const [newLeave, setNewLeave] = useState({});
 
   const handleNext = async (e) => {
-    const newLeave = {
-      leaveType: type,
-      startDate: startDate,
-      endDate: endDate,
-      reason: reason,
-    };
     e.preventDefault();
     setLoading(true);
     try {
-      // const response = await addNewLeave(newLeave);
-      console.log(newLeave);
-      // if (response.success) {
-      //   showToast(true, "Leave request added successfully!");
-      // } else {
-      //   showToast(false, "Failed to add new Leave Request");
-      // }
+      const response = await addNewLeave(newLeave);
+      if (response.success) {
+        onClose();
+        showToast(true, "Leave request added successfully!");
+      } else {
+        showToast(false, "Failed to add new Leave Request");
+      }
     } catch (err) {
       showToast(false, `Failed to add new Leave Request: ${err}`);
     } finally {
@@ -56,8 +48,10 @@ export default function NewLeaveForm({ showToast, onClose }) {
         <input
           type="date"
           id="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          value={newLeave.startDate}
+          onChange={(e) =>
+            setNewLeave({ ...newLeave, startDate: e.target.value })
+          }
           className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight/70 placeholder:font-normal placeholder:text-xs focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
         />
         <label htmlFor="date" className="text-primaryLight text-base mb-1">
@@ -66,24 +60,27 @@ export default function NewLeaveForm({ showToast, onClose }) {
         <input
           type="date"
           id="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          value={newLeave.endDate}
+          onChange={(e) =>
+            setNewLeave({ ...newLeave, endDate: e.target.value })
+          }
           className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight/70 placeholder:font-normal placeholder:text-xs focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
         />
         <label className="text-primaryLight text-base mt-1">Leave Reason</label>
         <CustomInputField
-          color="primary"
-          onChange={(e) => setReason(e.target.value)}
+          onChange={(e) => setNewLeave({ ...newLeave, reason: e.target.value })}
           placeholder="Enter Reason for the Leave"
           editable={true}
         />
-        <label htmlFor="date" className="text-sm font-medium text-gray-700">
-          Select Date
+        <label htmlFor="date" className="text-primaryLight text-base mb-1">
+          Select Leave Type
         </label>
         <select
           id="options"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
+          value={newLeave.type}
+          onChange={(e) =>
+            setNewLeave({ ...newLeave, leaveType: e.target.value })
+          }
           className="w-full px-4 py-3 pr-10 rounded-lg italic text-primaryDark font-semibold text-sm placeholder:text-primaryLight/70 placeholder:font-normal placeholder:text-xs focus:outline-none focus:ring-2 focus:ring-primaryLight bg-secondary/50"
         >
           <option value="">-- Choose your leave type --</option>
@@ -91,6 +88,15 @@ export default function NewLeaveForm({ showToast, onClose }) {
           <option value="ANNUAL">ANNUAL</option>
           <option value="CASUAL">CASUAL</option>
         </select>
+        <CustomInputField
+          label="Testing email (Optional)"
+          onChange={(e) =>
+            setNewLeave({ ...newLeave, testMailAddress: e.target.value })
+          }
+          placeholder="Enter your correct mail, we'll send email"
+          editable={true}
+          type="email"
+        />
         <button
           type="submit"
           className="bg-primaryDark text-white py-2 mt-2 rounded-lg font-semibold hover:bg-primaryLight"
