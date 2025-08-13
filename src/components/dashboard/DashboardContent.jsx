@@ -10,11 +10,12 @@ import {
   LabelList,
   XAxis,
 } from "recharts";
-import LoadingScreen from "../LoadingScreen";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
-import ErrorScreen from "../ErrorScreen";
+import ErrorScreen from "../../shared/ErrorScreen";
+import LoadingScreen from "../../shared/LoadingScreen";
+import DashBoardLeavesTable from "./DashBoardLeavesTable";
 
 export default function Dashboard() {
   const { dashboard, loading, error, refetch } = useDashboard();
@@ -28,7 +29,7 @@ export default function Dashboard() {
 
   if (loading)
     return (
-      <div className="h-screen w-full">
+      <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex justify-center items-center">
         <LoadingScreen />
       </div>
     );
@@ -178,8 +179,8 @@ export default function Dashboard() {
 
       <div className="flex flex-wrap gap-x-6 gap-y-6 justify-between mb-6">
         {/* Leave Requests */}
-        <div className="flex-1 min-w-[320px] rounded-lg bg-white/50 p-4">
-          <div className="flex flex-row justify-between items-center mb-6">
+        <div className="flex-1 min-w-[320px] rounded-lg bg-white/50 p-6">
+          <div className="flex flex-row justify-between items-center mb-8">
             <p className="text-primaryDark font-bold text-lg">Leave Requests</p>
             <Button
               color="warning"
@@ -194,34 +195,7 @@ export default function Dashboard() {
               </span>
             </Button>
           </div>
-          {dashboard.leaves.map((leave) => (
-            <div
-              key={leave.id}
-              className="w-full rounded-lg flex flex-row justify-between p-3 my-2 bg-primaryLight/20 items-center"
-            >
-              <p className="text-sm text-primaryDark">{leave.employeeName}</p>
-              <p className="text-sm text-primaryDark">
-                {(new Date(leave.endDate) - new Date(leave.startDate)) /
-                  (1000 * 3600 * 24)}{" "}
-                Days
-              </p>
-              <Chip
-                color={
-                  leave.status === "APPROVED"
-                    ? "success"
-                    : leave.status === "REJECTED"
-                    ? "danger"
-                    : "warning"
-                }
-                variant="flat"
-                radius="sm"
-              >
-                <span className="text-xs font-semibold px-2">
-                  {leave.status}
-                </span>
-              </Chip>
-            </div>
-          ))}
+          <DashBoardLeavesTable leaves={dashboard.leaves} />
         </div>
 
         {/* Payroll Statistics */}

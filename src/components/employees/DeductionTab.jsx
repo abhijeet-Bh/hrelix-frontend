@@ -1,8 +1,8 @@
 import { useState } from "react";
-import CustomInputField from "./CustomInputField";
 import { updateDeductions } from "../../api/employeeApi";
 import { formatINRCurrency } from "../../utils/UtilityFunctions";
-import { addToast } from "@heroui/react";
+import { addToast, Spinner } from "@heroui/react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function DeductionTab({ employeeData, setEmployeeData }) {
   const [deductions, setDeductions] = useState(employeeData?.deductions || {});
@@ -115,10 +115,12 @@ export default function DeductionTab({ employeeData, setEmployeeData }) {
 
       <button
         type="submit"
-        className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold"
+        className={`px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold ${
+          loading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         disabled={loading}
       >
-        {loading ? "Updating..." : "Update Deductions"}
+        {loading ? <Spinner /> : "Update Deductions"}
       </button>
     </form>
   );

@@ -47,15 +47,16 @@ export default function Sidebar() {
         isCollapsed={isCollapsed}
       />
       <NavButton
-        to="/payroll"
-        icon="/icons/payroll-icon.svg"
-        text="Payroll"
-        isCollapsed={isCollapsed}
-      />
-      <NavButton
         to="/employee-leaves"
         icon="/icons/leaves-icon.svg"
         text="Employee Leaves"
+        isCollapsed={isCollapsed}
+      />
+
+      <NavButton
+        to="/payroll"
+        icon="/icons/payroll-icon.svg"
+        text="Payroll"
         isCollapsed={isCollapsed}
       />
       <NavButton

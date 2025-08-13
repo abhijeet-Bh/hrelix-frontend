@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createEmployee } from "../../api/employeeApi";
-import CustomInputField from "./CustomInputField";
-import LoadingScreen from "../LoadingScreen";
+import CustomInputField from "../../shared/CustomInputField";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function StepOneForm({ onNext, onClose, showToast }) {
   const [newEmployee, setNewEmployee] = useState({});

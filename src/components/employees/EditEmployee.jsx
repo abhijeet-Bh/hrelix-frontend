@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Tabs, Tab, Card, CardBody } from "@heroui/react";
-import CustomInputField from "./CustomInputField";
 import CTCTab from "./CTCTab";
 import DeductionTab from "./DeductionTab";
 import BankDetailsTab from "./BankDetailsTab";
 import PersonalDetailsTab from "./PersonalDetailsTab";
 import { searchEmployeeByEmail } from "../../api/employeeApi";
-import LoadingScreen from "../LoadingScreen";
+import CustomInputField from "../../shared/CustomInputField";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function EditEmployee({ defaultEmail = "" }) {
   const { email: emailParam } = useParams();

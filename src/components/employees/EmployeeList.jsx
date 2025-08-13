@@ -10,7 +10,7 @@ import {
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
 import { deleteEmployee } from "../../api/employeeApi";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function EmployeeList({ employeeList, reFresh, showToast }) {
   const [loading, setLoading] = useState(false);
@@ -144,14 +144,20 @@ export default function EmployeeList({ employeeList, reFresh, showToast }) {
     { name: "ACTIONS", uid: "actions" },
   ];
   return (
-    <div className="relative h-full w-full flex flex-col items-start">
+    <div className="relative h-full w-full flex flex-col items-start bg-white/70 border-white border-1 p-5 rounded-xl">
       {loading && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/70">
+        <div className="absolute inset-0 z-50 flex items-center justify-center">
           <LoadingScreen />
         </div>
       )}
       {employeeList && (
-        <Table isStriped>
+        <Table
+          removeWrapper
+          classNames={{
+            tr: "even:bg-primaryDark/5 rounded-xl",
+            th: "bg-primaryDark text-white",
+          }}
+        >
           <TableHeader columns={columns}>
             {(column) => (
               <TableColumn

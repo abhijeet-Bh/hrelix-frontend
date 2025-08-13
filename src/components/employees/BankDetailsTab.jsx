@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CustomInputField from "./CustomInputField";
 import { updateBankDetails } from "../../api/employeeApi";
-import { addToast } from "@heroui/react";
+import { addToast, Spinner } from "@heroui/react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function BankDetailsTab({ employeeData, setEmployeeData }) {
   const [bankDetail, setBankDetail] = useState(
@@ -75,10 +75,12 @@ export default function BankDetailsTab({ employeeData, setEmployeeData }) {
 
       <button
         type="submit"
-        className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold"
+        className={`px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold ${
+          loading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         disabled={loading}
       >
-        {loading ? "Updating..." : "Update Bank Details"}
+        {loading ? <Spinner /> : "Update Bank Details"}
       </button>
     </form>
   );

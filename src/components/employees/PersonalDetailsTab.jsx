@@ -1,8 +1,7 @@
-import { Formik, Form } from "formik";
-import CustomInputField from "./CustomInputField";
 import { updatePersonalDetails } from "../../api/employeeApi";
-import { addToast } from "@heroui/react";
+import { addToast, Spinner } from "@heroui/react";
 import { useState } from "react";
+import CustomInputField from "../../shared/CustomInputField";
 
 export default function PersonalDetailsTab({ employeeData, setEmployeeData }) {
   const [employeeDetails, setEmployeeDetails] = useState(
@@ -113,10 +112,12 @@ export default function PersonalDetailsTab({ employeeData, setEmployeeData }) {
       />
       <button
         type="submit"
-        className="px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold"
+        className={`px-6 py-2 rounded-lg bg-primaryDark text-white font-semibold ${
+          loading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
         disabled={loading}
       >
-        {loading ? "Updating..." : "Save Changes"}
+        {loading ? <Spinner /> : "Save Changes"}
       </button>
     </form>
   );
