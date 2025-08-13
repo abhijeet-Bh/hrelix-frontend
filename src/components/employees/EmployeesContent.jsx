@@ -1,11 +1,10 @@
 import { useState } from "react";
-import ErrorScreen from "../ErrorScreen";
-import LoadingScreen from "../LoadingScreen";
 import EmployeeList from "./EmployeeList";
 import NoResult from "./NoResult";
 import { useEmployee } from "./use-employee";
 import AddEmployeeModal from "./AddEmployeeModal";
 import { addToast } from "@heroui/react";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function EmployeesContent() {
   const [showModal, setShowModal] = useState(false);

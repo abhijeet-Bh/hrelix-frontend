@@ -10,11 +10,11 @@ import {
   LabelList,
   XAxis,
 } from "recharts";
-import LoadingScreen from "../LoadingScreen";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
-import ErrorScreen from "../ErrorScreen";
+import ErrorScreen from "../../shared/ErrorScreen";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function Dashboard() {
   const { dashboard, loading, error, refetch } = useDashboard();

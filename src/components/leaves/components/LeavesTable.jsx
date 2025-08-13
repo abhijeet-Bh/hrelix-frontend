@@ -11,8 +11,10 @@ import {
   Select,
   SelectItem,
   Button,
+  Pagination,
 } from "@heroui/react";
 import { formatDate } from "../../../utils/UtilityFunctions";
+import LoadingScreen from "../../../shared/LoadingScreen";
 
 // Define columns for the table
 const columns = [
@@ -38,7 +40,14 @@ const leavetypeMap = {
   annual: "success",
 };
 
-export default function LeavesTable({ leaves, onStatusChange }) {
+export default function LeavesTable({
+  leaves,
+  onStatusChange,
+  setPage,
+  loading,
+  totalPage,
+  currentPage,
+}) {
   const [editRowId, setEditRowId] = useState(null);
   const [newStatus, setNewStatus] = useState("");
 
@@ -98,7 +107,7 @@ export default function LeavesTable({ leaves, onStatusChange }) {
           return (
             <p className="text-primaryDark tracking-wide">
               <span className="font-bold">
-                {cellValue > 10 ? cellValue : `0${cellValue}`}
+                {cellValue > 9 ? cellValue : `0${cellValue}`}
               </span>{" "}
               Days
             </p>
@@ -166,6 +175,11 @@ export default function LeavesTable({ leaves, onStatusChange }) {
 
   return (
     <div className="bg-white/50 border-white border-1 rounded-xl p-4">
+      {loading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center">
+          <LoadingScreen />
+        </div>
+      )}
       <Table
         removeWrapper
         classNames={{
@@ -194,6 +208,14 @@ export default function LeavesTable({ leaves, onStatusChange }) {
           )}
         </TableBody>
       </Table>
+      <Pagination
+        color="warning"
+        isCompact
+        page={currentPage}
+        total={totalPage}
+        onChange={setPage}
+        className="mt-2 w-full flex items-center justify-end"
+      />
     </div>
   );
 }

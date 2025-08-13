@@ -10,7 +10,7 @@ import {
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
 import { deleteEmployee } from "../../api/employeeApi";
-import LoadingScreen from "../LoadingScreen";
+import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function EmployeeList({ employeeList, reFresh, showToast }) {
   const [loading, setLoading] = useState(false);

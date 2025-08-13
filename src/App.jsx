@@ -10,11 +10,11 @@ import Settings from "./components/Settings";
 import Help from "./components/Help";
 import AuthWrapper from "./utils/AuthWrapper";
 import Dashboard from "./components/dashboard/Dashboard";
-import ErrorScreen from "./components/ErrorScreen";
 import { useIsMobile } from "./utils/useIsMobile";
 import EmployeeDetails from "./components/employees/EmployeeDetails";
 import EditEmployee from "./components/employees/EditEmployee";
 import Leaves from "./components/leaves/Leaves";
+import ErrorScreen from "./shared/ErrorScreen";
 
 function App() {
   const auth = useSelector((state) => state.auth);

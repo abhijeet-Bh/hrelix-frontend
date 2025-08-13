@@ -22,3 +22,20 @@ export const addNewLeave = async (data) => {
     return error.response.data;
   }
 };
+
+// Get leaves
+export const getLeaves = async (pageNo) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/leaves`, {
+      params: {
+        page: pageNo,
+        size: 2,
+      },
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return error.response?.data;
+  }
+};

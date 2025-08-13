@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "./Thunks";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../shared/LoadingScreen";
 
 export default function AuthWrapper({ children }) {
   const dispatch = useDispatch();

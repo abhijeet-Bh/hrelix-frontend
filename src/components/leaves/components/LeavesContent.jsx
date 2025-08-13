@@ -1,20 +1,18 @@
-import { useState } from "react";
-import { DummyLeaves } from "../data/dummy-leaves";
+import { useEffect, useState } from "react";
 import LeavesTable from "./LeavesTable";
-import { Button } from "@heroui/react";
 import AddNewLeave from "./AddNewLeave";
+import { useLeaves } from "../data/use-leaves";
+import LoadingScreen from "../../../shared/LoadingScreen";
+import ErrorScreen from "../../../shared/ErrorScreen";
 
 export default function LeavesContent() {
-  const [leaves, setLeaves] = useState(DummyLeaves);
+  const { leaves, loading, error, fetchLeaves, pagination } = useLeaves();
   const [showModal, setShowModal] = useState(false);
+  const [page, setPage] = useState(1);
 
-  function onStatusChange(id, status) {
-    setLeaves((prevLeaves) =>
-      prevLeaves.map((leave) =>
-        leave.id === id ? { ...leave, status } : leave
-      )
-    );
-  }
+  useEffect(() => {
+    fetchLeaves(page);
+  }, [page]);
 
   return (
     <div className="p-8">
@@ -29,8 +27,20 @@ export default function LeavesContent() {
         </div>
       </div>
       <div>
+        {error && <ErrorScreen />}
+        {loading && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center">
+            <LoadingScreen />
+          </div>
+        )}
         {leaves.length > 0 ? (
-          <LeavesTable leaves={leaves} onStatusChange={onStatusChange} />
+          <LeavesTable
+            leaves={leaves}
+            setPage={setPage}
+            loading={loading}
+            totalPage={pagination.totalPage}
+            currentPage={pagination.currentPage + 1}
+          />
         ) : (
           "No Leaves data!"
         )}
