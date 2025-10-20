@@ -13,46 +13,52 @@ export function EmployeeProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Keep session cache updated
+  // keep cache updated whenever list changes
   useEffect(() => {
     if (employeeList) {
       sessionStorage.setItem("employeeList", JSON.stringify(employeeList));
     }
   }, [employeeList]);
 
-  const searchEmployeeEmailOrname = async (key) => {
-    if (!key) return;
-    setEmployeeList(null);
+  // 🧹 Hard-refresh fetch from backend (ignore cache)
+  const refreshAllEmployees = async () => {
     try {
       setLoading(true);
-      const data = await searchEmployeeByEmailOrName(key);
+      setError(null);
+      const data = await getAllEmployees();
       setEmployeeList(data);
+      sessionStorage.setItem("employeeList", JSON.stringify(data));
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(
-        err.response?.data?.error?.message || "Failed to load employees"
+        err.response?.data?.error?.message || "Failed to refresh employees"
       );
     } finally {
       setLoading(false);
     }
   };
 
+  // normal fetch — uses cache if available
   const fetchAllEmployees = async () => {
-    // Check cache first
     const cached = sessionStorage.getItem("employeeList");
     if (cached) {
       setEmployeeList(JSON.parse(cached));
       return;
     }
+    await refreshAllEmployees();
+  };
 
+  // search (always fetches new data)
+  const searchEmployeeEmailOrname = async (key) => {
+    if (!key) return;
     setEmployeeList(null);
     try {
       setLoading(true);
-      const data = await getAllEmployees();
+      setError(null);
+      const data = await searchEmployeeByEmailOrName(key);
       setEmployeeList(data);
-      sessionStorage.setItem("employeeList", JSON.stringify(data));
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(
         err.response?.data?.error?.message || "Failed to load employees"
       );
@@ -69,6 +75,7 @@ export function EmployeeProvider({ children }) {
         error,
         searchEmployeeEmailOrname,
         fetchAllEmployees,
+        refreshAllEmployees,
         setEmployeeList,
       }}
     >

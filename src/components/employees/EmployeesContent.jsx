@@ -14,7 +14,7 @@ export default function EmployeesContent() {
     loading,
     error,
     searchEmployeeEmailOrname,
-    fetchAllEmployees,
+    refreshAllEmployees,
     setEmployeeList,
   } = useEmployee();
 
@@ -73,7 +73,7 @@ export default function EmployeesContent() {
             </button>
             <button
               className="px-2 w-[200px] text-sm text-white font-semibold py-2 rounded-md ml-4 drop-shadow-button cursor-pointer bg-pinkAccent"
-              onClick={fetchAllEmployees}
+              onClick={refreshAllEmployees}
             >
               All Employees
             </button>
@@ -84,7 +84,7 @@ export default function EmployeesContent() {
         loading={loading}
         error={error}
         employeeList={employeeList}
-        fetchAllEmployees={fetchAllEmployees}
+        fetchAllEmployees={refreshAllEmployees}
         showToast={showToast}
       />
 
