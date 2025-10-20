@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   getAllEmployees,
   searchEmployeeByEmailOrName,
@@ -6,11 +6,20 @@ import {
 import { EmployeeContext } from "./employee-context";
 
 export function EmployeeProvider({ children }) {
-  const [employeeList, setEmployeeList] = useState(null);
+  const [employeeList, setEmployeeList] = useState(() => {
+    const cached = sessionStorage.getItem("employeeList");
+    return cached ? JSON.parse(cached) : null;
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // search employee by email or name
+  // Keep session cache updated
+  useEffect(() => {
+    if (employeeList) {
+      sessionStorage.setItem("employeeList", JSON.stringify(employeeList));
+    }
+  }, [employeeList]);
+
   const searchEmployeeEmailOrname = async (key) => {
     if (!key) return;
     setEmployeeList(null);
@@ -20,22 +29,33 @@ export function EmployeeProvider({ children }) {
       setEmployeeList(data);
     } catch (err) {
       console.log(err);
-      setError(err.response.data.error.message || "Failed to load dashboard");
+      setError(
+        err.response?.data?.error?.message || "Failed to load employees"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // get all employee
   const fetchAllEmployees = async () => {
+    // Check cache first
+    const cached = sessionStorage.getItem("employeeList");
+    if (cached) {
+      setEmployeeList(JSON.parse(cached));
+      return;
+    }
+
     setEmployeeList(null);
     try {
       setLoading(true);
       const data = await getAllEmployees();
       setEmployeeList(data);
+      sessionStorage.setItem("employeeList", JSON.stringify(data));
     } catch (err) {
       console.log(err);
-      setError(err.response.data.error.message || "Failed to load dashboard");
+      setError(
+        err.response?.data?.error?.message || "Failed to load employees"
+      );
     } finally {
       setLoading(false);
     }
