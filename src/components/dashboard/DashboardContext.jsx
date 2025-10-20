@@ -4,17 +4,30 @@ import { fetchDashboardData } from "../../api/dashboardApi.js";
 import { DashboardContext } from "./dashboard-context.js";
 
 export function DashboardProvider({ children }) {
-  const [dashboard, setDashboard] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [dashboard, setDashboard] = useState(() => {
+    const cached = sessionStorage.getItem("dashboardData");
+    return cached ? JSON.parse(cached) : null;
+  });
+  const [loading, setLoading] = useState(!dashboard); // only load if not cached
   const [error, setError] = useState(null);
 
   const accessToken = useSelector((state) => state.auth.accessToken);
 
-  const loadDashboardData = async () => {
+  const loadDashboardData = async (forceRefresh = false) => {
+    // use cache unless forced
+    if (!forceRefresh) {
+      const cached = sessionStorage.getItem("dashboardData");
+      if (cached) {
+        setDashboard(JSON.parse(cached));
+        return;
+      }
+    }
+
     try {
       setLoading(true);
       const data = await fetchDashboardData();
       setDashboard(data);
+      sessionStorage.setItem("dashboardData", JSON.stringify(data));
     } catch (err) {
       setError(err.message || "Failed to load dashboard");
     } finally {
@@ -22,25 +35,28 @@ export function DashboardProvider({ children }) {
     }
   };
 
+  // initial load
   useEffect(() => {
-    const loadDashboardData = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchDashboardData();
-        setDashboard(data);
-      } catch (err) {
-        setError(err.message || "Failed to load dashboard");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (accessToken) loadDashboardData();
+    if (accessToken && !dashboard) {
+      loadDashboardData();
+    }
   }, [accessToken]);
+
+  // keep cache updated when dashboard changes
+  useEffect(() => {
+    if (dashboard) {
+      sessionStorage.setItem("dashboardData", JSON.stringify(dashboard));
+    }
+  }, [dashboard]);
 
   return (
     <DashboardContext.Provider
-      value={{ dashboard, loading, error, refetch: loadDashboardData }}
+      value={{
+        dashboard,
+        loading,
+        error,
+        refetch: () => loadDashboardData(true), // force refresh
+      }}
     >
       {children}
     </DashboardContext.Provider>

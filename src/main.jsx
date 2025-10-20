@@ -5,6 +5,15 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.js";
 
+// 🧹 Detect hard refresh using modern API
+const navEntries = performance.getEntriesByType("navigation");
+const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
+
+if (isReload) {
+  sessionStorage.clear();
+  console.log("Hard refresh detected — session cache cleared");
+}
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App />
