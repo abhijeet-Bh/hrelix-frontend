@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useDashboard } from "./use-dashboard";
+import { useDashboardQuery } from "./useDashboardQuery";
 import { Button, Chip, Tooltip as HeroTooltip, Link } from "@heroui/react";
 import { useNavigate } from "react-router";
 import {
@@ -18,7 +18,13 @@ import LoadingScreen from "../../shared/LoadingScreen";
 import DashBoardLeavesTable from "./DashBoardLeavesTable";
 
 export default function Dashboard() {
-  const { dashboard, loading, error, refetch } = useDashboard();
+  const {
+    data: dashboard,
+    isLoading: loading,
+    error,
+    refetch,
+  } = useDashboardQuery();
+
   const navigate = useNavigate();
   const user = useSelector((state) => state.profile);
 
@@ -51,7 +57,16 @@ export default function Dashboard() {
         isButtonEnabled={true}
       />
     );
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error)
+    return (
+      <ErrorScreen
+        error={error.message || "Failed to load dashboard"}
+        text="Refresh"
+        callBack={refetch}
+        isButtonEnabled={true}
+      />
+    );
+
   if (!dashboard) return null;
 
   const xdata = [
