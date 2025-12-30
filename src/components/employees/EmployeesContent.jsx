@@ -1,33 +1,45 @@
 import { useState } from "react";
 import EmployeeList from "./EmployeeList";
 import NoResult from "./NoResult";
-import { useEmployee } from "./use-employee";
+import { useEmployeesQuery } from "./data/useEmployeesQuery";
+import { useSearchEmployeesQuery } from "./data/useSearchEmployeesQuery";
+import { useAddEmployeeMutation } from "./data/useAddEmployeeMutation";
 import AddEmployeeModal from "./AddEmployeeModal";
 import { addToast } from "@heroui/react";
 import LoadingScreen from "../../shared/LoadingScreen";
 
 export default function EmployeesContent() {
   const [showModal, setShowModal] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   const {
-    employeeList,
-    loading,
-    error,
-    searchEmployeeEmailOrname,
-    refreshAllEmployees,
-    setEmployeeList,
-  } = useEmployee();
+    data: allEmployees,
+    isLoading: loadingAll,
+    error: errorAll,
+    refetch: refreshAllEmployees,
+  } = useEmployeesQuery(!searchKey);
+
+  const {
+    data: searchedEmployees,
+    isLoading: loadingSearch,
+    error: errorSearch,
+  } = useSearchEmployeesQuery(searchKey);
+
+  const { mutate: addEmployee } = useAddEmployeeMutation();
+
+  const employeeList = searchKey ? searchedEmployees : allEmployees;
+  const loading = loadingAll || loadingSearch;
+  const error = errorAll || errorSearch;
 
   async function searchEmp(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const key = formData.get("key");
-    await searchEmployeeEmailOrname(key);
+    setSearchKey(formData.get("key"));
     e.target.reset();
   }
 
   const handleAddEmployee = (newEmployee) => {
-    setEmployeeList([newEmployee]); // or refetchAllEmployees()
+    addEmployee(newEmployee);
   };
 
   const showToast = (success, description, color) => {
@@ -73,7 +85,10 @@ export default function EmployeesContent() {
             </button>
             <button
               className="px-2 w-[200px] text-sm text-white font-semibold py-2 rounded-md ml-4 drop-shadow-button cursor-pointer bg-pinkAccent"
-              onClick={refreshAllEmployees}
+              onClick={() => {
+                setSearchKey("");
+                refreshAllEmployees();
+              }}
             >
               All Employees
             </button>

@@ -1,32 +1,40 @@
 import { useEffect, useState } from "react";
 import LeavesTable from "./LeavesTable";
 import AddNewLeave from "./AddNewLeave";
-import { useLeaves } from "../data/use-leaves";
+import { useLeavesQuery } from "../data/useLeavesQuery";
+import { useUpdateLeaveStatus } from "../data/useUpdateLeaveStatus";
 import LoadingScreen from "../../../shared/LoadingScreen";
 import ErrorScreen from "../../../shared/ErrorScreen";
 
 export default function LeavesContent() {
-  const { leaves, loading, error, fetchLeaves, pagination, updateStatus } =
-    useLeaves();
-  const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    fetchLeaves(page);
-  }, [page]);
+  const { data, isLoading: loading, error } = useLeavesQuery(page);
+
+  const { mutate: updateStatus, isPending } = useUpdateLeaveStatus(page);
+
+  const leaves = data?.leaves ?? [];
+  const pagination = data?.pagination ?? {};
 
   const handleStatusChange = (id, data) => {
-    try {
-      updateStatus(id, data, page);
-    } catch (err) {
-      console.log(err);
-    }
+    updateStatus({ id, statusData: data });
   };
 
-  const handleClose = async () => {
+  const handleClose = () => {
     setShowModal(false);
-    fetchLeaves(page);
   };
+
+  {
+    error && <ErrorScreen error={error.message} />;
+  }
+  {
+    (loading || isPending) && (
+      <div className="absolute inset-0 z-50 flex items-center justify-center">
+        <LoadingScreen />
+      </div>
+    );
+  }
 
   return (
     <div className="p-8">
