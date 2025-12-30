@@ -1,4 +1,4 @@
-const dev = true;
+const dev = false;
 
 const BASE_URL_DEV = "http://localhost:80";
 const BASE_URL_PROD = "https://api-hrelix.blufin.co.in";
